@@ -1,0 +1,19 @@
+{
+    "authors": [
+      "O2O Protocol <o2oprotocol101@gmail.com>"
+    ],
+    "license": "MIT",
+    "description": "O2O Protocol",
+    "keywords": [
+      "solidity",
+      "ethereum",
+      "O2O Protocol"
+    ],
+    "links": {},
+    "sources": [
+    ],
+    "dependencies": {},
+    "manifest_version": 1,
+    "package_name": "o2oprotocol",
+    "version": "1.0.0"
+  }
