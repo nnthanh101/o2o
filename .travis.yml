@@ -8,8 +8,6 @@ cache:
 before_script:
   - node --version
 script:
-  - npm run lint
-  - npm run lint:sol
   - npm run chain:private
   - sleep 5
   - npm run test
