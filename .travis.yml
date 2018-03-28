@@ -1,6 +1,5 @@
 language: node_js
 node_js:
-  - "6.10.3"
   - "8.10.0"
 cache:
   directories:
@@ -11,22 +10,16 @@ script:
   - npm run chain:private
   - sleep 5
   - npm run test
-# deploy:
-#   - provider: script
-#     skip_cleanup: true
-#     script: ./deploy.sh
-#     on:
-#       all_branches: true
-#       tags: true
-#       repo: o2oprotocol/o2oprotocol
-#   - provider: npm
-#     skip_cleanup: true
-#     email: o2oprotocol101@gmail.com
-#     api_key: $NPM_KEY
-#     on:
-#       all_branches: true
-#       tags: true
-#       repo: o2oprotocol/o2oprotocol
+deploy:
+ - provider: script
+   skip_cleanup: true
+   script: npx truffle deploy --network development
+   email: o2oprotocol101@gmail.com
+   on:
+     all_branches: true
+     repo: o2oprotocol/o2oprotocol
+env:
+ - NODE_ENV=development
 notifications:
   email: true
 after_failure: cat /home/travis/build/o2oprotocol/o2oprotocol/npm-debug.log
