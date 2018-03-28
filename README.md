@@ -2,26 +2,24 @@
 This helpful Boilerplates that allow you to focus on what makes your DApp unique; includes Solidity Smart Contracts &amp; Libraries, Front-end Views and more.
 
 
-## Roadmap
+## 1. Roadmap
 - [x] O2OProtocol Initial - `User Registry` Smart Contract
 - [ ] Development & Deployment Environment: local > testnet > mainnet
 
 
-## O2OProtocol Initial
+## 2. O2OProtocol Initial
 
 ![Ethereum DApp Ecosystem](public/images/ethereum.jpg)
 
-## `package.json`
-
 ### Smart Contract Packages:
 npm install --save truffle web3 dotenv uport-connect ipfs-api
-npm install --save-dev ganache-cli solium solidity-coverage
+npm install --save-dev ganache-cli solium solidity-coverage truffle-hdwallet-provider
 
 ### Frontend Packages:
 npm install --save react react-dom redux react-redux react-router redux-thunk
 npm install --save-dev
 
-## Directory Structure
+### Directory Structure
 
 ```
 /
@@ -36,7 +34,7 @@ npm install --save-dev
 ├── truffle.js                                          <- Truffle configuration file
 ```
 
-## Testing
+## 3. Testing
 
 ### Test on Local blockchain
 
