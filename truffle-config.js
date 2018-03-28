@@ -18,6 +18,10 @@ truffleSetup = {
 // In future we might consider prompting for mnemonics:
 // https://www.npmjs.com/package/prompt
 //
+
+// Please setup gas limit to resolve bug "exceed gas limit" when deploy
+const gas = process.env.GAS_LIMIT || 1000000 // milion
+
 if (process.env.MAINNET_MNEMONIC) {
   truffleSetup.networks.mainnet = {
     provider: function() {
@@ -25,7 +29,8 @@ if (process.env.MAINNET_MNEMONIC) {
         process.env.MAINNET_MNEMONIC,
         `https://mainnet.infura.io/${process.env.INFURA_ACCESS_TOKEN}`)
     },
-    network_id: 1
+    network_id: 1,
+    gas,
   }
 }
 if (process.env.RINKEBY_MNEMONIC) {
@@ -35,7 +40,8 @@ if (process.env.RINKEBY_MNEMONIC) {
         process.env.RINKEBY_MNEMONIC,
         `https://rinkeby.infura.io/${process.env.INFURA_ACCESS_TOKEN}`)
     },
-    network_id: 4
+    network_id: 4,
+    gas,
   }
 }
 if (process.env.ROPSTEN_MNEMONIC) {
@@ -45,7 +51,8 @@ if (process.env.ROPSTEN_MNEMONIC) {
         process.env.ROPSTEN_MNEMONIC,
         `https://ropsten.infura.io/${process.env.INFURA_ACCESS_TOKEN}`)
     },
-    network_id: 3
+    network_id: 3,
+    gas,
   }
 }
 
