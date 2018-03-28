@@ -3,7 +3,7 @@ This helpful Boilerplates that allow you to focus on what makes your DApp unique
 
 
 ## Roadmap
-- [x] O2OProtocol Initial - `Hello World`
+- [x] O2OProtocol Initial - `User Registry` Smart Contract
 - [ ] Development & Deployment Environment: local > testnet > mainnet
 
 
