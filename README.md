@@ -1,6 +1,9 @@
 # Blockchain Smart Contract & IPFS - Boilerplate
 This helpful Boilerplates that allow you to focus on what makes your DApp unique; includes Solidity Smart Contracts &amp; Libraries, Front-end Views and more.
 
+[![NPM Package](https://img.shields.io/npm/v/o2oprotocol.svg?style=flat-square)](https://www.npmjs.com/package/o2oprotocol)
+[![Build Status](https://img.shields.io/travis/o2oprotocol/o2oprotocol.svg?branch=master&style=flat-square)](https://travis-ci.org/o2oprotocol/o2oprotocol)
+
 
 ## 1. Roadmap
 - [x] O2OProtocol Initial - `User Registry` Smart Contract
