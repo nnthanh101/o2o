@@ -4,7 +4,14 @@
   "description": "Smart Contracts (create and book listings) without directly interfacing with the Blockchain or IPFS.",
   "main": "index.js",
   "scripts": {
-    "test": "node scripts/test.js"
+    "pretest": "truffle compile",
+    "test": "truffle test",
+    "test:watch": "watch \"reset && npm test\" test/ contracts/",
+    "compile": "truffle compile --reset",
+    "migrate:kovan": "truffle migrate --network kovan",
+    "migrate:rinkeby": "truffle migrate --network rinkeby",
+    "migrate:ropsten": "truffle migrate --network ropsten",
+    "migrate:mainnet": "truffle migrate --network mainnet"
   },
   "repository": {
     "type": "git",
@@ -16,6 +23,9 @@
     "Smart Contract",
     "Ethereum",
     "IPFS"
+  ],
+  "files": [
+    "build/"
   ],
   "author": "o2oprotocol.io",
   "license": "MIT",
