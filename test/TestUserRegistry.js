@@ -1,4 +1,4 @@
-const contractDefinition = artifacts.require('./UserRegistry.sol');
+const contractDefinition = artifacts.require('UserRegistry.sol');
 
 // Used to assert error cases
 const isEVMError = function(err) {
