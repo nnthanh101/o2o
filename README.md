@@ -7,8 +7,9 @@ This helpful Boilerplates that allow you to focus on what makes your DApp unique
 
 ## 1. Roadmap
 - [x] O2OProtocol Initial - `User Registry` Smart Contract
-- [ ] Development & Deployment Environment: local > testnet > mainnet
-
+- [x] Development & Deployment Environment: local,ropsten,rinkeby,mainnet
+- [ ] `owned` pattern, ERC20 token contract
+- [ ] secured by IPFS content hash
 
 ## 2. O2OProtocol Initial
 
@@ -88,4 +89,11 @@ Resolve this by running all migrations again:
 
 ```sh
 migrate --reset
+```
+
+## Publish
+
+```sh
+npm publish &&
+
 ```
