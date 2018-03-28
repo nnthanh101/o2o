@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "truffle compile",
+    "chain:private": "ganache-cli -p 8545",
     "test": "truffle test",
     "test:watch": "watch \"reset && npm test\" test/ contracts/",
     "compile": "truffle compile --reset",

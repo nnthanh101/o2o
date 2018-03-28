@@ -5,21 +5,31 @@ node_js:
 cache:
   directories:
   - node_modules
-deploy:
-  - provider: script
-    skip_cleanup: true
-    script: ./deploy.sh
-    on:
-      all_branches: true
-      tags: true
-      repo: o2oprotocol/o2oprotocol
-  - provider: npm
-    skip_cleanup: true
-    email: o2oprotocol101@gmail.com
-    api_key: $NPM_KEY
-    on:
-      all_branches: true
-      tags: true
-      repo: o2oprotocol/o2oprotocol
+before_script:
+  - node --version
+  - truffle --version
+script:
+  - npm run lint
+  - npm run lint:sol
+  - npm run chain:private
+  - sleep 5
+  - npm run test
+# deploy:
+#   - provider: script
+#     skip_cleanup: true
+#     script: ./deploy.sh
+#     on:
+#       all_branches: true
+#       tags: true
+#       repo: o2oprotocol/o2oprotocol
+#   - provider: npm
+#     skip_cleanup: true
+#     email: o2oprotocol101@gmail.com
+#     api_key: $NPM_KEY
+#     on:
+#       all_branches: true
+#       tags: true
+#       repo: o2oprotocol/o2oprotocol
 notifications:
   email: true
+after_failure: cat /home/travis/build/o2oprotocol/o2oprotocol/npm-debug.log
