@@ -3,7 +3,7 @@ pragma solidity ^0.4.0;
 
 
 /**
- * @description	Ledger contract interface
+ * Ledger contract interface
  */
 contract O2OLedger {
     function receiveFunds(address _to) public payable;
