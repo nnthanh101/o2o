@@ -8,7 +8,11 @@ This helpful Boilerplates that allow you to focus on what makes your DApp unique
 ## 1. Roadmap
 - [x] O2OProtocol Initial - `User Registry` Smart Contract
 - [x] Development & Deployment Environment: local,ropsten,rinkeby,mainnet
-- [ ] `owned` pattern, ERC20 token contract
+- [x] [EIP-20: ERC-20 Token Standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md). TODO: [ERC-233](https://github.com/ethereum/EIPs/issues/223)
+- [ ] `owned` pattern
+- [ ] Controller, Access Controll, Database, Ledger
+- [ ] New Policy, Underwrite, Payout for Insurance
+- [ ] Oraclize
 - [ ] secured by IPFS content hash
 
 ## 2. O2OProtocol Initial
@@ -33,13 +37,13 @@ make sure `npm` version >= 5.2.0
 ```
 /
 ├── contracts                                           <- Directory for Solidity contracts 
-│   ├── 
-│   └── 
+│   ├── Migrations.sol
+│   └── UserRegistry.sol
 ├── migrations                                          <- Directory for scriptable deployment files 
-│   ├── 
-│   └── 
+│   ├── 1_initial_migration.js
+│   └── 2_deploy_contracts.js
 ├── test                                                <- Directory for test files for testing your application and contracts
-│   └── 
+│   └── TestUserRegistry.js
 ├── truffle-config.js                                   <- Truffle configuration file
 ```
 
