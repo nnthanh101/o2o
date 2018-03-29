@@ -86,7 +86,7 @@ contract O2OToken is ERC20TokenInterface, SafeMath {
         string _tokenName,
         uint8 _decimalUnits,
         string _tokenSymbol
-    ) {
+    ) public {
         balances[msg.sender] = _initialAmount;          // Give the creator all initial tokens
         totalSupply = _initialAmount;                   // Update total supply
         name = _tokenName;                              // Set the name for display purposes
@@ -98,12 +98,12 @@ contract O2OToken is ERC20TokenInterface, SafeMath {
         return name;
     }
 
-    function symbol() view public returns (string _tokenSymbol) {
-        return symbol;
-    }
-
     function decimals() view public returns (uint8 _decimalUnits){
         return decimals;
+    }
+
+    function symbol() view public returns (string _tokenSymbol) {
+        return symbol;
     }
 
     // Standard function transfer similar to ERC20 transfer with no _data .
