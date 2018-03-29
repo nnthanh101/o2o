@@ -1,8 +1,8 @@
 pragma solidity ^0.4.0;
 
 /*
-    Define Model
-*/
+ * Define Model
+ */
 contract O2ODataModel {
     enum ModelA {
         id,
@@ -11,10 +11,10 @@ contract O2ODataModel {
 
 }
 
+/*
+ * Define set, get to store and read data
+ */
 contract O2ODatabase {
-    /*
-    Define set, get to store and read data
-    */
-    function setModelA(uint8 id, string name) returns (unint8 modelId);
-    function getModelA(uint8 modelId) returns (ModelA _value);
+    function setModelA(uint8 id, string name) public returns (uint8 modelId);
+    function getModelA(uint8 modelId) public returns (uint8 _value);
 }
