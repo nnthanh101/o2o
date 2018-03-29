@@ -1,4 +1,4 @@
-pragma solidity ^0.4.4;
+pragma solidity ^0.4.0;
 
 contract ERC20TokenInterface {
     /// @return the name of the token - e.g. "O2O protocol"
