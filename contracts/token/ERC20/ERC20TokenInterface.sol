@@ -1,6 +1,6 @@
 pragma solidity ^0.4.4;
 
-contract Token {
+contract ERC20TokenInterface {
     /// @return the name of the token - e.g. "O2O protocol"
     function name() view returns (string name){}
 
