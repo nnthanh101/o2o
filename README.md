@@ -8,7 +8,7 @@ This helpful Boilerplates that allow you to focus on what makes your DApp unique
 ## 1. Roadmap
 - [x] O2OProtocol Initial - `User Registry` Smart Contract
 - [x] Development & Deployment Environment: local,ropsten,rinkeby,mainnet
-- [x] [EIP-20 & ERC20](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
+- [x] [EIP-20: ERC-20 Token Standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
 - [ ] `owned` pattern
 - [ ] Controller, Access Controll, Database, Ledger
 - [ ] New Policy, Underwrite, Payout for Insurance
