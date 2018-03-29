@@ -25,7 +25,8 @@ Its very easy to check if the contract has been manipulated.
 ## Test Expect
 - [ ] Database
 
-+ All data kept in database
++ Database Model define used `models` 
++ Database Interface define `set/get` on `any model` we want to store in smart contract
 
 - [ ] Ledger
 
