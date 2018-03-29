@@ -81,7 +81,7 @@ contract O2OToken is ERC20TokenInterface, SafeMath {
     mapping (address => mapping (address => uint256)) allowed;
     uint256 public totalSupply;
 
-    function HumanStandardToken(
+    function O2OToken(
         uint256 _initialAmount,
         string _tokenName,
         uint8 _decimalUnits,
