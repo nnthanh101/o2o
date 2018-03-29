@@ -94,43 +94,16 @@ contract O2OToken is ERC20TokenInterface, SafeMath {
         symbol = _tokenSymbol;                          // Set the symbol for display purposes
     }
 
-    function name() view returns (string _tokenName){
+    function name() view public returns (string _tokenName){
         return name;
     }
 
-    function symbol() view returns (string _tokenSymbol) {
+    function symbol() view public returns (string _tokenSymbol) {
         return symbol;
     }
 
-    function decimals() view returns (uint8 _decimalUnits){
+    function decimals() view public returns (uint8 _decimalUnits){
         return decimals;
-    }
-
-    // Function that is called when a user or another contract wants to transfer funds .
-    function transfer(address _to, uint _value, bytes _data, string _custom_fallback) public returns (bool success) {
-
-        if(isContract(_to)) {
-            if (balanceOf(msg.sender) < _value) revert();
-            balances[msg.sender] = safeSub(balanceOf(msg.sender), _value);
-            balances[_to] = safeAdd(balanceOf(_to), _value);
-            assert(_to.call.value(0)(bytes4(keccak256(_custom_fallback)), msg.sender, _value, _data));
-            Transfer(msg.sender, _to, _value, _data);
-            return true;
-        }
-        else {
-            return transferToAddress(_to, _value, _data);
-        }
-    }
-
-    // Function that is called when a user or another contract wants to transfer funds .
-    function transfer(address _to, uint _value, bytes _data) public returns (bool success) {
-
-        if(isContract(_to)) {
-            return transferToContract(_to, _value, _data);
-        }
-        else {
-            return transferToAddress(_to, _value, _data);
-        }
     }
 
     // Standard function transfer similar to ERC20 transfer with no _data .
@@ -183,13 +156,13 @@ contract O2OToken is ERC20TokenInterface, SafeMath {
         return balances[_owner];
     }
 
-    function approve(address _spender, uint256 _value) returns (bool success) {
+    function approve(address _spender, uint256 _value) public returns (bool success) {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
         return true;
     }
 
-    function allowance(address _owner, address _spender) constant returns (uint256 remaining) {
+    function allowance(address _owner, address _spender) constant public returns (uint256 remaining) {
       return allowed[_owner][_spender];
     }
 }
