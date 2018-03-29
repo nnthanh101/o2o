@@ -27,14 +27,21 @@ Its very easy to check if the contract has been manipulated.
 
 + Database Model define used `models` 
 + Database Interface define `set/get` on `any model` we want to store in smart contract
++ @TODO: Store BOTH in smart contract's state & sub system database
 
 - [ ] Ledger
 
-+ Only ledger keep money
++ Ledger receive money
++ Ledger do payment
+
+- [ ] Logic
+
++ ...
++ @TODO: Gas profiling on how much does it cost on ("run function" + "store data")
 
 - [ ] Access Controller
 
-+ Restrict call on functions
++ Any function call in contracts should explicitly tell who can execute it
 
 - [ ] Controller
 
