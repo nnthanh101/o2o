@@ -6,14 +6,25 @@ This helpful Boilerplates that allow you to focus on what makes your DApp unique
 
 
 ## 1. Roadmap
+
+### 1.1. Truffle Developer
 - [x] O2OProtocol Initial - `User Registry` Smart Contract
 - [x] Development & Deployment Environment: local,ropsten,rinkeby,mainnet
 - [x] [EIP-20: ERC-20 Token Standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md). TODO: [ERC-233](https://github.com/ethereum/EIPs/issues/223)
-- [ ] `owned` pattern
-- [ ] Controller, Access Controll, Database, Ledger
-- [ ] New Policy, Underwrite, Payout for Insurance
-- [ ] Oraclize
-- [ ] secured by IPFS content hash
+- [ ] Design Pattern: `Owned`, `Controller`, `Access Controll`, `Database`, `Ledger`, `Oraclize`; `New Policy`, `Underwrite`, `Payout`.
+- [ ] [Web3](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethestimategas) and [JSON RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_estimategas)
+- [ ] IPFS
+- [ ] O2O High-Level Architecture
+- [ ] The ABI definition of the Smart Contract
+
+## 1.2. Lazy Developer
+- [ ] Private Blockchains “Consortium Blockchains”
+- [ ] Using [Geth](https://www.ethereum.org/cli) to setup a “private” or “testnet” Ethereum blockchain. Note: Geth is suitable for building frontends for DApps --> Genesis block, Indentity, DataDir --> Externally Owned Accounts `EOA` & `Contract Accounts`
+[TODO](https://coin5s.com/content/deploying-dapp-ethereum%E2%80%99s-test-blockchain)
+- Testing using [Ganache (TestRPC)](https://github.com/trufflesuite/ganache-cli)
+
+
+## 1.3. Happy User
 
 ## 2. O2OProtocol Initial
 
