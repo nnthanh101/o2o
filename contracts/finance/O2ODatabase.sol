@@ -15,6 +15,7 @@ contract O2ODataModel {
  * Define set, get to store and read data
  */
 contract O2ODatabase {
-    function setModelA(uint8 id, string name) public returns (uint8 modelId);
-    function getModelA(uint8 modelId) public returns (uint8 _value);
+    function setAccessControl(address _contract, address _caller, uint8 _perm) public;
+    function setAccessControl(address _contract, address _caller, uint8 _perm, bool _access) public;
+    function getAccessControl(address _contract, address _caller, uint8 _perm) public returns (bool _allowed);
 }

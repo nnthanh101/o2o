@@ -25,6 +25,6 @@ contract O2OControlled {
         selfdestruct(controller);
     }
 
-    function setContracts() onlyController view public {}
+    function setContracts() onlyController public;
     function getContract(bytes32 _id) internal returns (address _addr);
 }
