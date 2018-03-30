@@ -1,5 +1,5 @@
 /**
- * @description	Owned pattern
+ * Owned pattern
  */
 
 pragma solidity ^0.4.0;
