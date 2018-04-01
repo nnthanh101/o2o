@@ -1,5 +1,6 @@
 {
   "name": "o2oprotocol",
+  "private": true,
   "version": "1.0.0",
   "description": "Smart Contracts (create and book listings) without directly interfacing with the Blockchain or IPFS.",
   "main": "index.js",

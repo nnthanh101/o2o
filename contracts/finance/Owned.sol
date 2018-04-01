@@ -14,7 +14,7 @@ contract Owned {
     address public owner;
 
     /**
-     * @dev The Owned constructor sets the original `owner` of the contract to the sender
+     * @dev The Owned constructor sets the `owner` of the contract to the sender
      * account.
      */
     function Owned() public {

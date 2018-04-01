@@ -13,6 +13,7 @@ This helpful Boilerplates that allow you to focus on what makes your DApp unique
 - [x] [EIP-20: ERC-20 Token Standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md). TODO: [ERC-233](https://github.com/ethereum/EIPs/issues/223)
 - [ ] Design Pattern: `Owned`, `Controller`, `Access Controll`, `Database`, `Ledger`, `Oraclize`
 - [ ] Design Pattern: `New Policy`, `Underwrite`, `Payout`
+- [ ] Design Pattern `Sharing Economy`: `Listing`, `Purchase` 
 - [ ] [Web3](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethestimategas) and [JSON RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_estimategas)
 - [ ] IPFS
 - [ ] O2O High-Level Architecture
@@ -113,3 +114,24 @@ migrate --reset
 npm publish &&
 
 ```
+
+### 1.1.1. Smart Contract 
+
+
+### 1.1.2. Data Sharing
+
+> Sellers:
+
+ - Create Listings
+ - Update Listings
+ - Delete Listings
+ - Validate Listings
+ 
+> Buyers:
+ 
+ - Browse Listing
+ - Create Bookings
+ - Update Bookings
+ - Cancel Bookings
+
+ Note: to show the gas costs of each transaction during a test, set the enviroment variable GAS_TRACKING before launching truffle develop. For example, using bash: GAS_TRACKING=1 npx truffle develop
