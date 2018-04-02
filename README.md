@@ -137,3 +137,21 @@ npm publish &&
  - Cancel Bookings
 
  Note: to show the gas costs of each transaction during a test, set the enviroment variable GAS_TRACKING before launching truffle develop. For example, using bash: GAS_TRACKING=1 npx truffle develop
+
+
+## Smart Contract Audit
+- [x] Unit tests passing, checking tests configuration (matching the configuration of main network);
+- [x] Compilator warnings;
+- [ ] Race Conditions. Reentrancy. Cross-function Race Conditions. Pitfalls in Race Condition solutions;
+- [ ] Possible delays in data delivery;
+- [ ] Transaction-Ordering Dependence (front running);
+- [ ] Timestamp Dependence;
+- [ ] Integer Overflow and Underflow;
+- [ ] DoS with (unexpected) Revert;
+- [ ] DoS with Block Gas Limit;
+- [ ] Call Depth Attack. Not relevant in modern ethereum network :)
+- [ ] Methods execution permissions;
+- [ ] Oracles calls;
+- [ ] Economy model. It’s important to forecast scenarios when user is provided with additional economic motivation or faced with limitations. If application logic is based on incorrect economy model, the application would not function correctly and participants would incur financial losses. This type of issue is most often found in bonus rewards systems.
+- [ ] The impact of the exchange rate on the logic;
+- [ ] Private user data leaks.
