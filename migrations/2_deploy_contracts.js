@@ -1,7 +1,9 @@
-var ListingsRegistry = artifacts.require("ListingsRegistry.sol");
-var UserRegistry = artifacts.require("UserRegistry.sol");
+const UserRegistry = artifacts.require("UserRegistry.sol");
+const Listing = artifacts.require("Listing.sol")
+const ListingsRegistry = artifacts.require("ListingsRegistry.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(ListingsRegistry);
   deployer.deploy(UserRegistry);
+  deployer.deploy(Listing);
+  deployer.deploy(ListingsRegistry);
 };

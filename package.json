@@ -5,12 +5,13 @@
   "description": "Smart Contracts (create and book listings) without directly interfacing with the Blockchain or IPFS.",
   "main": "index.js",
   "scripts": {
-    "pretest": "truffle compile",
-    "chain:private": "ganache-cli -p 8545 &",
     "test": "truffle test --network development",
-    "test:watch": "watch \"reset && npm test\" test/ contracts/",
-    "compile": "truffle compile --reset",
-    "migrate:kovan": "truffle migrate --network kovan",
+	  "pretest": "truffle compile",
+	  "compile": "truffle compile",
+	  "recompile": "truffle compile --all",
+	  "test:watch": "watch \"reset && npm test\" test/ contracts/",
+	  "chain:private": "ganache-cli -p 8545 &",
+	  "migrate:kovan": "truffle migrate --network kovan",
     "migrate:rinkeby": "truffle migrate --network rinkeby",
     "migrate:ropsten": "truffle migrate --network ropsten",
     "migrate:mainnet": "truffle migrate --network mainnet"

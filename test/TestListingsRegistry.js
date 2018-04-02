@@ -1,6 +1,6 @@
-const contractDefinition = artifacts.require('./ListingsRegistry.sol')
+const contractDefinition = artifacts.require('ListingsRegistry.sol')
 
-const initialListingsLength = 5
+const INITIAL_LISTINGS_LENGTH = 0
 const ipfsHash = '0x6b14cac30356789cd0c39fec0acc2176c3573abdb799f3b17ccc6972ab4d39ba'
 
 // Used to assert error cases
@@ -25,7 +25,8 @@ contract('ListingsRegistry', accounts => {
 
   it('should deploy with 5 listings', async function() {
     let listingCount = await instance.listingsLength()
-    assert.equal(listingCount.toNumber(), 5)
+    // assert.equal(listingCount.toNumber(), 5)
+    assert.equal(listingCount.toNumber(), INITIAL_LISTINGS_LENGTH)
   })
 
   it('should be able to create a listing', async function() {
@@ -33,8 +34,8 @@ contract('ListingsRegistry', accounts => {
     const initUnitsAvailable = 5
     await instance.create(ipfsHash, initPrice, initUnitsAvailable, {from: accounts[0]})
     let listingCount = await instance.listingsLength()
-    assert.equal(listingCount, initialListingsLength + 1, 'listings count has incremented')
-    let [listingAddress, lister, hash, price, unitsAvailable] = await instance.getListing(initialListingsLength)
+    assert.equal(listingCount.toNumber(), INITIAL_LISTINGS_LENGTH + 1, 'listings count has incremented')
+    let [listingAddress, lister, hash, price, unitsAvailable] = await instance.getListing(INITIAL_LISTINGS_LENGTH)
     assert.equal(lister, accounts[0], 'lister is correct')
     assert.equal(hash, ipfsHash, 'ipfsHash is correct')
     assert.equal(price, initPrice, 'price is correct')
