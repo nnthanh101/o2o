@@ -39,5 +39,10 @@ contract('UserRegistry', accounts => {
       let [owner, ipfsHash] = await instance.users(0);
       assert.equal(ipfsHash, ipfsHash_1, 'ipfsHash has not been updated')
     }
+  it('should be able to set a user', async function() {
+    await instance.set(ipfsHash_1, {from: accounts[0]});
+    let [ipfsHash, isSet] = await instance.users(accounts[0]);
+    assert.equal(isSet, true, 'user has been set');
+    assert.equal(ipfsHash, ipfsHash_1, 'user has correct ipfsHash');
   });
 });
