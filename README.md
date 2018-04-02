@@ -10,12 +10,13 @@ This helpful Boilerplates that allow you to focus on what makes your DApp unique
 ### 1.1. Truffle Developer
 - [x] O2OProtocol Initial - `User Registry` Smart Contract
 - [x] Development & Deployment Environment: local,ropsten,rinkeby,mainnet
-- [x] [EIP-20: ERC-20 Token Standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md). TODO: [ERC-233](https://github.com/ethereum/EIPs/issues/223)
-- [ ] Design Pattern: `Owned`, `Controller`, `Access Controll`, `Database`, `Ledger`, `Oraclize`
-- [ ] Design Pattern: `New Policy`, `Underwrite`, `Payout`
-- [ ] Design Pattern `Sharing Economy`: `Listing`, `Purchase` 
-- [ ] [Web3](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethestimategas) and [JSON RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_estimategas)
+- [x] Standard [EIP-20: ERC-20 Token Standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md). TODO: [ERC-233](https://github.com/ethereum/EIPs/issues/223)
+- [x] Coding best practices: safeMath
+- [x] Design Pattern: `Owned`, `Controller`, `Access Controll`, `Database`, `Ledger`, `Oraclize`
+- [x] Design Pattern: `New Policy`, `Underwrite`, `Payout`
+- [x] Design Pattern `Sharing Economy`: `Listing`, `Purchase` 
 - [ ] IPFS
+- [ ] [Web3](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethestimategas) and [JSON RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_estimategas)
 - [ ] O2O High-Level Architecture
 - [ ] The ABI definition of the Smart Contract: "public" via etherscan + "private" via frontend.
 - [ ] Testing using [Ganache (TestRPC)](https://github.com/trufflesuite/ganache-cli)
@@ -24,6 +25,7 @@ This helpful Boilerplates that allow you to focus on what makes your DApp unique
 - [ ] Private Blockchains “Consortium Blockchains” using [Geth](https://www.ethereum.org/cli) to setup a “private” or “testnet” Ethereum blockchain. Note: Geth is suitable for building frontends for DApps --> Genesis block, Indentity, DataDir --> Externally Owned Accounts `EOA` & `Contract Accounts`
 [TODO](https://coin5s.com/content/deploying-dapp-ethereum%E2%80%99s-test-blockchain)
 - [ ] Develop eConomySharing: `Listing.sol`
+- [ ] Financial atomic processes & standards: payments, assets, data, identity, KYC, governance
 
 
 ## 1.3. Happy User

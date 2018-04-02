@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.17;
 
 /// @title UserRegistry
 /// @dev Used to keep registry of user identifies
@@ -8,36 +8,31 @@ contract UserRegistry {
     * Events
     */
 
-    event NewUser(uint _index);
+    event NewUser(address _address);
 
     /*
     * Storage
     */
 
-    // Array of all users
-    userStruct[] public users;
+    // Mapping of all users
+    mapping(address => userStruct) public users;
 
     /*
     * Structs
     */
 
     struct userStruct {
-        address owner;
         bytes32 ipfsHash;
+        bool isSet;
     }
 
     /*
     * Modifiers
     */
 
-    modifier isValidUserIndex(uint _index) {
-        require (_index < users.length);
+    modifier isValidUserAddress() {
+        require (users[msg.sender].isSet);
         _;
-    }
-
-    modifier isOwner(uint _index) {
-      require (msg.sender == users[_index].owner);
-      _;
     }
 
     /*
@@ -46,35 +41,20 @@ contract UserRegistry {
 
     /// @dev create(): Create a new user
     /// @param _ipfsHash Hash of data on ipfsHash
-    function create(
+    function set(
         bytes32 _ipfsHash
     )
         public
-        returns (uint)
     {
-        users.push(userStruct(msg.sender, _ipfsHash));
-        NewUser(users.length-1);
-        return users.length;
+        users[msg.sender] = userStruct(_ipfsHash, true);
+        NewUser(msg.sender);
     }
 
-    /// @dev create(): Create a new user
-    /// @param _ipfsHash Hash of data on ipfsHash
-    function update(
-        uint _index,
-        bytes32 _ipfsHash
-    )
-        public
-        isValidUserIndex(_index)
-        isOwner(_index)
-    {
-        users[_index].ipfsHash = _ipfsHash;
-    }
-
-    /// @dev create_another(): Create a new user and associates attenstion or proof with user
+    /// @dev createAnother(): Create a new user and associates attenstion or proof with user
     // @param wallet id
     // Attestation or proof to associate to the user
     // TODO: replace with real function
-    function create_another(
+    function createAnother(
         string _id,
         string payload)
         public
