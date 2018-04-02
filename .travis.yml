@@ -9,7 +9,7 @@ before_script:
 script:
   - npm run chain:private
   - sleep 5
-  - npm run recompile
+  - npm run migrate --network development
   - npm run test
 deploy:
  - provider: script
