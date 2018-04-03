@@ -1,6 +1,6 @@
 const IPFS = require('ipfs-daemon')
 const options = {
-	IpfsDataDir: "/root/ipfs-data",
+	IpfsDataDir: "ipfs-data",
   LogDirectory: '/tmp', // Directory to write ipfs-daemon.log file for ipfs-daemon
   Flags: ['--enable-pubsub-experiment'], // Flags to pass to IPFS daemon
   Addresses: { // IPFS Daemon addresses
