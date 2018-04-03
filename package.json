@@ -14,7 +14,8 @@
     "migrate:kovan": "truffle migrate --network kovan",
     "migrate:rinkeby": "truffle migrate --network rinkeby",
     "migrate:ropsten": "truffle migrate --network ropsten",
-    "migrate:mainnet": "truffle migrate --network mainnet"
+    "migrate:mainnet": "truffle migrate --network mainnet",
+	  "ipfs:daemon": "pm2 start ipfs/daemon/index.js --name=IpfsDaemon"
   },
   "repository": {
     "type": "git",
