@@ -61,6 +61,7 @@ typings/
 build/
 build_webpack/
 
+.idea
 
 # Mac OS
 .DS_Store

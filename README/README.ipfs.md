@@ -47,5 +47,14 @@ Review online
 https://infs.io/ipfs/QmNwoE1vkQeEwY3dyDdK4uyaYpm2GYTUn68mqkf4kdvXcn
 ```
 
+## Tunning Config
+
+Hanlde port conflict
+
+```
+ipfs config Addresses.API /ip4/0.0.0.0/tcp/5001
+ipfs config Addresses.Gateway /ip4/0.0.0.0/tcp/8080
+```
+
 
 
