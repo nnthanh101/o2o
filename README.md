@@ -15,10 +15,10 @@ This helpful Boilerplates that allow you to focus on what makes your DApp unique
 - [x] Design Pattern: `Owned`, `Controller`, `Access Controll`, `Database`, `Ledger`, `Oraclize`
 - [x] Design Pattern: `New Policy`, `Underwrite`, `Payout`
 - [x] Design Pattern `Sharing Economy`: `Listing`, `Purchase` 
-- [ ] IPFS
+- [x] IPFS
 - [ ] [Web3](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethestimategas) and [JSON RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_estimategas)
 - [ ] O2O High-Level Architecture
-- [ ] The ABI definition of the Smart Contract: "public" via etherscan + "private" via frontend.
+- [x] The ABI definition of the Smart Contract: "public" via etherscan + "private" via frontend.
 - [ ] Testing using [Ganache (TestRPC)](https://github.com/trufflesuite/ganache-cli)
 
 ## 1.2. Lazy Developer
