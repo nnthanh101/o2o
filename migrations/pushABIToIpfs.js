@@ -17,7 +17,7 @@ const ipfsConfig = {host, port, protocol}
 // ABI files
 const abiFilenames = fs.readdirSync(abiPath)
 // This is not GOOD PRACTICE from INFURA, when they require data as buffer
-const files = abiFilenames.map(fileName => fs.readFileSync(`${abiPath}/${fileName}`))
+const files = abiFilenames.map(fileName => `${abiPath}/${fileName}`)
 
 const pushABIToIpfs = () => {
   return pushFilesToIpfs(ipfsConfig, files)
