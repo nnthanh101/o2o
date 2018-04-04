@@ -142,11 +142,11 @@ npm publish &&
 ## Smart Contract Audit
 - [x] Unit tests passing, checking tests configuration (matching the configuration of main network);
 - [x] Compilator warnings;
-- [ ] Race Conditions. Reentrancy. Cross-function Race Conditions. Pitfalls in Race Condition solutions;
+- [x] Race Conditions. Reentrancy. Cross-function Race Conditions. Pitfalls in Race Condition solutions;
 - [ ] Possible delays in data delivery;
-- [ ] Transaction-Ordering Dependence (front running);
+- [x] Transaction-Ordering Dependence (front running);
 - [ ] Timestamp Dependence;
-- [ ] Integer Overflow and Underflow;
+- [x] Integer Overflow and Underflow;
 - [ ] DoS with (unexpected) Revert;
 - [ ] DoS with Block Gas Limit;
 - [ ] Call Depth Attack. Not relevant in modern ethereum network :)
