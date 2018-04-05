@@ -1,7 +1,5 @@
 /**
  * IPFS interface
- *
- * Compare with: https://github.com/RequestNetwork/requestNetwork/blob/master/packages/requestNetwork.js/src/servicesExternal/ipfs-service.ts
  */
 
 const ipfsAPI = require('ipfs-api')

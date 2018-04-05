@@ -1,0 +1,4 @@
+{
+	"presets": ["node7"],
+	"plugins": ["transform-async-to-generator", "babel-plugin-inline-json-import"]
+}
