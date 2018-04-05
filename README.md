@@ -20,6 +20,8 @@ This helpful Boilerplates that allow you to focus on what makes your DApp unique
 - [ ] O2O High-Level Architecture
 - [x] The ABI definition of the Smart Contract: "public" via etherscan + "private" via frontend.
 - [ ] Testing using [Ganache (TestRPC)](https://github.com/trufflesuite/ganache-cli)
+- [ ] servives/src/index.js --> o2oprotocol.js: listings, contractService, userRegistryService, ipfsService.
+
 
 ## 1.2. Lazy Developer
 - [ ] Private Blockchains “Consortium Blockchains” using [Geth](https://www.ethereum.org/cli) to setup a “private” or “testnet” Ethereum blockchain. Note: Geth is suitable for building frontends for DApps --> Genesis block, Indentity, DataDir --> Externally Owned Accounts `EOA` & `Contract Accounts`
