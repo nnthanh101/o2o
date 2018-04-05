@@ -1,18 +1,20 @@
 {
   "name": "o2oprotocol",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-inline-json-import": "^0.2.1",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-node7": "^1.5.0",
+    "fs-extra": "^5.0.0",
     "husky": "^0.14.3",
     "lint-staged": "^4.0.0",
     "nodemon": "^1.12.4",
     "prettier": "^1.4.4"
   },
   "dependencies": {
+    "ajv": "^6.4.0",
     "bs58": "^4.0.1",
     "ipfs-api": "^19.0.0",
     "map-cache": "^0.2.2",
@@ -21,12 +23,7 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "start": "yarn storeEnv && yarn start:dev",
-    "start:dev": "nodemon dist/bin/www",
-    "test": "babel-node scripts/run-test",
-    "build": "babel-node scripts/deploy.js",
-    "migration": "babel-node scripts/migration.js",
-    "storeEnv": "babel-node scripts/storeEnv.js"
+    "build": "babel-node scripts/build.js"
   },
   "lint-staged": {
     "*.js": [
