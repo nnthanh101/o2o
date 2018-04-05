@@ -1,7 +1,21 @@
 {
   "name": "o2oprotocol",
-  "version": "0.0.1",
   "private": true,
+  "version": "1.0.0",
+  "description": "Smart Contracts (create and book listings) without directly interfacing with the Blockchain or IPFS.",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "webpack-dev-server --hot --config test/webpack.config.js",
+    "build:contracts": "cd ../contracts && npx truffle compile",
+    "build:webpack": "webpack --config webpack.config.js",
+    "build": "npm run build:contracts && npm run build:webpack",
+    "build:watch": "npm run build:contracts && npm run build:webpack -- --watch",
+    "prepare": "npm run build",
+    "precommit": "lint-staged"
+  },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-inline-json-import": "^0.2.1",
@@ -20,10 +34,6 @@
     "map-cache": "^0.2.2",
     "truffle-contract": "^3.0.4",
     "util.promisify": "^1.0.0"
-  },
-  "scripts": {
-    "precommit": "lint-staged",
-    "build": "babel-node scripts/build.js"
   },
   "lint-staged": {
     "*.js": [
