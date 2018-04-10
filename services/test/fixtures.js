@@ -26,6 +26,15 @@ export const listings = [
   }
 ]
 
+// TODO Should set local ipfs on travis & run test
+// Simpel reuse public ipfs of infura for quick test
+// export const ipfsConfig = {
+//   ipfsDomain: "ipfs.infura.io",
+//   ipfsApiPort: "5001",
+//   ipfsGatewayPort: "",
+//   ipfsProtocol: "https"
+// }
+
 export const ipfsConfig = {
   ipfsDomain: "localhost",
   ipfsApiPort: "5001",
