@@ -1,6 +1,7 @@
 import Web3 from "web3"
 import { expect } from "chai"
 import O2OProtocol from "../src/index.js"
+import { ipfsConfig } from "./fixtures"
 
 describe("Listing Resource", () => {
   let o2oprotocol
@@ -14,13 +15,6 @@ describe("Listing Resource", () => {
     const web3 = new Web3(provider)
 
     // ipfsConfig
-    const ipfsConfig = {
-      ipfsDomain: "localhost",
-      ipfsApiPort: "5001",
-      ipfsGatewayPort: "8080",
-      ipfsProtocol: "http"
-    }
-
     o2oprotocol = new O2OProtocol({ web3, ipfsConfig })
     testListingIds = await o2oprotocol.contractService.getAllListingIds()
   })

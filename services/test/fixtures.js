@@ -25,3 +25,10 @@ export const listings = [
     ipfsHash: "Qmbjig3cZbUUufWqCEFzyCppqdnmQj3RoDjJWomnqYGy1f"
   }
 ]
+
+export const ipfsConfig = {
+  ipfsDomain: "localhost",
+  ipfsApiPort: "5001",
+  ipfsGatewayPort: "8080",
+  ipfsProtocol: "http"
+}

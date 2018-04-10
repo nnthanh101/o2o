@@ -1,6 +1,6 @@
 import { expect } from "chai"
 import IpfsService from "../src/ipfs-service"
-import { listings, ipfsHashes } from "./fixtures"
+import { listings, ipfsHashes, ipfsConfig } from "./fixtures"
 
 const clearCache = ipfsService => {
   const { mapCache } = ipfsService
@@ -14,12 +14,6 @@ describe("IpfsService", () => {
   let ipfsService
 
   beforeEach(() => {
-    const ipfsConfig = {
-      ipfsDomain: "localhost",
-      ipfsApiPort: "5001",
-      ipfsGatewayPort: "8080",
-      ipfsProtocol: "http"
-    }
     ipfsService = new IpfsService(ipfsConfig)
   })
 
