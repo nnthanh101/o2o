@@ -1,59 +1,36 @@
-// const contractService = require('./contract-service')
-// const ipfsService = require('./ipfs-service')
-// const o2oService = require('./o2o-service')
-
 import ContractService from "./contract-service"
 import IpfsService from "./ipfs-service"
-import O2OService from "./o2o-service"
-// import UserRegistryService from "./user-registry-service"
+import UserRegistryService from "./user-registry-service"
 
-const contractService = new ContractService()
-const ipfsService = new IpfsService()
-const o2oService = new O2OService({ contractService, ipfsService })
-// const userRegistryService = new UserRegistryService()
+// Resources contain mutiple definition of Smart Contract workflows
+// TODO Should load anything inside resources programatically
+const resources = {
+  listings: require("./resources/listings")
+}
 
-export default {
-  allIds: async function() {
-    return await contractService.getAllListingIds()
-  },
+class O2O {
+  constructor(options) {
+    // Fail soon when no web3 supply
+    const { web3 } = options || {}
+    if (!web3) throw new Error("Please provide 'web3' in options")
 
-  getByIndex: async function(listingIndex) {
-    const contractData = await contractService.getListing(listingIndex)
-    const ipfsData = await ipfsService.getFile(contractData.ipfsHash)
-    // ipfsService should have already checked the contents match the hash,
-    // and that the signature validates
+    // Should load web3 explicitly
+    // Load from window.web3 is not good option
+    this.contractService = new ContractService({ web3 })
+    this.ipfsService = new IpfsService({ web3 })
 
-    // We explicitly set these fields to white list the allowed fields.
-    const listing = {
-      name: ipfsData.data.name,
-      category: ipfsData.data.category,
-      description: ipfsData.data.description,
-      location: ipfsData.data.location,
-      pictures: ipfsData.data.pictures,
+    // TODO: This service is deprecated
+    this.userRegistryService = new UserRegistryService()
 
-      address: contractData.address,
-      index: contractData.index,
-      ipfsHash: contractData.ipfsHash,
-      sellerAddress: contractData.lister,
-      price: contractData.price,
-      unitsAvailable: contractData.unitsAvailable
+    // Instantiate each resource and give it access to contracts and IPFS
+    for (let resourceName in resources) {
+      let Resource = resources[resourceName]
+      this[resourceName] = new Resource({
+        contractService: this.contractService,
+        ipfsService: this.ipfsService
+      })
     }
-
-    // TODO: Validation
-    return listing
-  },
-
-  create: async function(data, schemaType) {
-    if (typeof data.price === "undefined") {
-      throw "You must include a price"
-    }
-    if (typeof data.name === "undefined") {
-      throw "You must include a name"
-    }
-    return o2oService.submitListing({ formData: data }, schemaType)
-  },
-
-  buy: async function(listingAddress, unitsToBuy, ethToPay) {
-    return await contractService.buyListing(listingAddress, unitsToBuy, ethToPay)
   }
 }
+
+module.exports = O2O
