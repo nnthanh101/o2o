@@ -12,11 +12,13 @@
     "recompile": "truffle compile --all",
     "test:watch": "watch \"reset && npm test\" test/ contracts/",
     "chain:private": "ganache-cli -p 8545 &",
+    "ipfs:daemon": "pm2 start ipfs/daemon/index.js --name=IpfsDaemon",
+    "migrate:development": "truffle migrate --network development",
     "migrate:kovan": "truffle migrate --network kovan",
     "migrate:rinkeby": "truffle migrate --network rinkeby",
     "migrate:ropsten": "truffle migrate --network ropsten",
     "migrate:mainnet": "truffle migrate --network mainnet",
-    "ipfs:daemon": "pm2 start ipfs/daemon/index.js --name=IpfsDaemon"
+    "deploy:development": "truffle deploy --network development"
   },
   "repository": {
     "type": "git",

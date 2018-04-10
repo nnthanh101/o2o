@@ -6,17 +6,15 @@ cache:
   - node_modules
 before_script:
   - node --version
-  # @Guess: Has bug when run truffle localy
-  - npm install -g truffle
 script:
   - npm run chain:private
   - sleep 5
-  - truffle migrate --network development
+  - npm run migrate:development
   - npm run test
 deploy:
  - provider: script
    skip_cleanup: true
-   script: truffle deploy --network development
+   script: 
    email: o2oprotocol101@gmail.com
    on:
      all_branches: true
