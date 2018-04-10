@@ -11,6 +11,7 @@ script:
   - sleep 5
   - npm run migrate:development
   - npm run test
+  - npm run test:services
 deploy:
  - provider: script
    skip_cleanup: true

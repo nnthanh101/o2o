@@ -6,11 +6,12 @@
   "main": "index.js",
   "scripts": {
     "precommit": "lint-staged",
-    "test": "truffle test --network development",
     "pretest": "truffle compile",
     "compile": "truffle compile",
     "recompile": "truffle compile --all",
+    "test": "truffle test --network development",
     "test:watch": "watch \"reset && npm test\" test/ contracts/",
+    "test:services": "cd services && npm install && npm run test:mocha",
     "chain:private": "ganache-cli -p 8545 &",
     "ipfs:daemon": "pm2 start ipfs/daemon/index.js --name=IpfsDaemon",
     "migrate:development": "truffle migrate --network development",
