@@ -45,7 +45,7 @@
   "dependencies": {
     "ajv": "^6.4.0",
     "bs58": "^4.0.1",
-    "ipfs-api": "^19.0.0",
+    "ipfs-api": "^14.3.7",
     "map-cache": "^0.2.2",
     "truffle-contract": "^3.0.4",
     "util.promisify": "^1.0.0",
