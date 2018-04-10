@@ -3,6 +3,7 @@ import { expect } from "chai"
 import O2OService from "../src/o2o-service"
 import IpfsService from "../src/ipfs-service"
 import ContractService from "../src/contract-service"
+import { ipfsConfig } from "./fixtures"
 
 const methodNames = ["submitListing"]
 
@@ -16,7 +17,7 @@ describe("O2OService", () => {
     const web3 = new Web3(provider)
 
     contractService = new ContractService({ web3 })
-    ipfsService = new IpfsService({ web3 })
+    ipfsService = new IpfsService(ipfsConfig)
     originService = new O2OService({ contractService, ipfsService })
   })
 
