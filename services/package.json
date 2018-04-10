@@ -1,18 +1,18 @@
 {
   "name": "o2oprotocol",
   "private": true,
-  "main": "./dist/index.js",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Smart Contracts (create and book listings) without directly interfacing with the Blockchain or IPFS.",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "webpack-dev-server --hot --config test/webpack.config.js",
-    "build:contracts": "cd ../contracts && npx truffle compile",
-    "build:webpack": "webpack --config webpack.config.js",
+    "precommit": "lint-staged",
+    "prepare": "echo prepare",
     "build": "npm run build:contracts && npm run build:webpack",
     "build:watch": "npm run build:contracts && npm run build:webpack -- --watch",
-    "prepare": "npm run build",
-    "precommit": "lint-staged"
+    "build:contracts": "cd ../contracts && npx truffle compile",
+    "build:webpack": "webpack --config webpack.config.js",
+    "test:webpack": "webpack-dev-server --hot --config test/webpack.config.js",
+    "test:mocha": "mocha --compilers js:babel-core/register"
   },
   "files": [
     "dist"
@@ -23,10 +23,24 @@
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-node7": "^1.5.0",
     "fs-extra": "^5.0.0",
-    "husky": "^0.14.3",
-    "lint-staged": "^4.0.0",
-    "nodemon": "^1.12.4",
-    "prettier": "^1.4.4"
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "chai": "^4.1.0",
+    "flow-bin": "^0.51.1",
+    "html-webpack-plugin": "^3.0.6",
+    "mocha": "^3.5.0",
+    "mocha-loader": "^1.1.3",
+    "sinon": "^2.4.1",
+    "uglifyjs-webpack-plugin": "^1.2.4",
+    "web3": "^0.20.1",
+    "webpack": "^3.4.1",
+    "webpack-dev-server": "^2.11.2",
+    "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
     "ajv": "^6.4.0",
@@ -34,12 +48,9 @@
     "ipfs-api": "^19.0.0",
     "map-cache": "^0.2.2",
     "truffle-contract": "^3.0.4",
-    "util.promisify": "^1.0.0"
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --write --no-semi --print-width 120",
-      "git add"
-    ]
+    "util.promisify": "^1.0.0",
+    "babel-polyfill": "^6.23.0",
+    "dotenv": "^2.0.0",
+    "npm": "^5.8.0"
   }
 }
