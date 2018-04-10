@@ -20,7 +20,7 @@ class O2OProtocol {
     this.ipfsService = new IpfsService({ web3 })
 
     // TODO: This service is deprecated
-    this.userRegistryService = new UserRegistryService()
+    this.userRegistryService = new UserRegistryService({ web3 })
 
     // Instantiate each resource and give it access to contracts and IPFS
     for (let resourceName in resources) {
