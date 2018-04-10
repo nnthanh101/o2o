@@ -1,60 +1,69 @@
-var nodeExternals = require('webpack-node-externals');
+const webpack = require("webpack")
+const nodeExternals = require("webpack-node-externals")
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin")
 
-var serverConfig = {
-  entry: ["babel-polyfill", './src/index.js'],
+const serverConfig = {
+  entry: ["babel-polyfill", "./src/index.js"],
   output: {
-    filename: './dist/index.js',
-    libraryTarget: 'commonjs2'
+    filename: "./dist/index.js",
+    libraryTarget: "commonjs2"
   },
-  devtool: 'inline-source-map',
-  target: 'node',
+  devtool: "inline-source-map",
+  target: "node",
   externals: [nodeExternals()],
   resolve: {
     /**
-    * Overriding the default to allow jsx to be resolved automatically.
-    */
-    extensions: ['.js', '.json', '.jsx'],
+     * Overriding the default to allow jsx to be resolved automatically.
+     */
+    extensions: [".js", ".json", ".jsx"]
     /**
-    * Access config from anywhere via `import settings from 'settings'``
-    */
+     * Access config from anywhere via `import settings from 'settings'``
+     */
   },
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         query: {
-          presets: ['env', 'es2015', 'react'],
-          plugins: ['transform-class-properties']
+          presets: ["env", "es2015", "react"],
+          plugins: ["transform-class-properties"]
         }
       }
     ]
   }
 }
 
-var clientConfig = {
-  entry: ["babel-polyfill", './src/index.js'],
+const clientConfig = {
+  entry: ["babel-polyfill", "./src/index.js"],
   output: {
-    filename: './dist/o2oprotocol.js',
-    libraryTarget: 'window'
+    filename: "./dist/origin.js",
+    libraryTarget: "window"
   },
-  devtool: 'inline-source-map',
-  target: 'web',
+  // devtool: 'inline-source-map',
+  target: "web",
   module: {
     loaders: [
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         query: {
-          presets: ['babel-preset-es2015'],
-          plugins: ['transform-class-properties']
+          presets: ["babel-preset-es2015"],
+          plugins: ["transform-class-properties"]
         }
       }
     ]
-  }
-
+  },
+  plugins: [
+    new UglifyJSPlugin({
+      sourceMap: false
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+  ]
 }
 
-module.exports = [ serverConfig, clientConfig ];
+module.exports = [serverConfig, clientConfig]
