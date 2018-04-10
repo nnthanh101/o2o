@@ -14,7 +14,7 @@ script:
 deploy:
  - provider: script
    skip_cleanup: true
-   script: 
+   script: npm run deploy:development
    email: o2oprotocol101@gmail.com
    on:
      all_branches: true
