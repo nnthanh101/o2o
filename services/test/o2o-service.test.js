@@ -1,28 +1,28 @@
-import { expect } from 'chai';
-import ContractService from '../src/contract-service'
-import IpfsService from '../src/ipfs-service'
-import O2OService from '../src/o2o-service'
+import Web3 from "web3"
+import { expect } from "chai"
+import O2OService from "../src/o2o-service"
+import IpfsService from "../src/ipfs-service"
+import ContractService from "../src/contract-service"
 
-const methodNames = [
-  'submitListing'
-]
+const methodNames = ["submitListing"]
 
-describe('O2OService', () => {
-
+describe("O2OService", () => {
   let contractService
   let ipfsService
-  let o2oService
+  let originService
 
   beforeEach(() => {
-    contractService = new ContractService()
-    ipfsService = new IpfsService()
-    o2oService = new O2OService({ contractService, ipfsService })
+    const provider = new Web3.providers.HttpProvider("http://localhost:8545")
+    const web3 = new Web3(provider)
+
+    contractService = new ContractService({ web3 })
+    ipfsService = new IpfsService({ web3 })
+    originService = new O2OService({ contractService, ipfsService })
   })
 
-  methodNames.forEach((methodName) => {
+  methodNames.forEach(methodName => {
     it(`should have ${methodName} method`, () => {
-      expect(o2oService[methodName]).to.be.an.instanceof(Function)
+      expect(originService[methodName]).to.be.an.instanceof(Function)
     })
   })
-
 })

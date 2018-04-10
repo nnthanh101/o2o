@@ -7,8 +7,8 @@ const clearCache = ipfsService => {
   Object.keys(mapCache.__data__).forEach(key => mapCache.del(key))
 }
 
-const methodNames = ["submitFile", "getFile", "gatewayUrlForHash"]
 const ipfsEnv = "local"
+const methodNames = ["submitFile", "getFile", "gatewayUrlForHash"]
 
 describe("IpfsService", () => {
   let ipfsService
