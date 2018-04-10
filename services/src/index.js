@@ -8,7 +8,7 @@ const resources = {
   listings: require("./resources/listings")
 }
 
-class O2O {
+class O2OProtocol {
   constructor(options) {
     // Fail soon when no web3 supply
     const { web3 } = options || {}
@@ -33,4 +33,4 @@ class O2O {
   }
 }
 
-module.exports = O2O
+export default O2OProtocol
