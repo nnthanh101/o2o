@@ -5,6 +5,8 @@ import O2OProtocol from "../src/index.js"
 describe("Listing Resource", () => {
   let o2oprotocol
   let testListingIds
+  let waitCreate
+  const LISTING_NAME = "1972 Geo Metro 255K"
 
   before(async () => {
     // web3
@@ -25,28 +27,12 @@ describe("Listing Resource", () => {
 
   it("should get all listing ids", async () => {
     const ids = await o2oprotocol.listings.allIds()
-    expect(ids.length).to.be.greaterThan(4)
+    expect(ids.length).to.be.greaterThan(1)
   })
-
-  it("should get a listing", async () => {
-    const listing = await o2oprotocol.listings.getByIndex(testListingIds[0])
-    console.log(listing)
-    expect(listing.name).to.equal("Zinc House")
-    expect(listing.index).to.equal(testListingIds[0])
-  })
-
-  it("should buy a listing", async () => {
-    const listing = await o2oprotocol.listings.getByIndex(testListingIds[0])
-    const transaction = await o2oprotocol.listings.buy(listing.address, 1, listing.price * 1)
-    //Todo: Currently this test will fail here with a timeout
-    //  because we need to somehow get web3 approve this transaction
-    // Todo: wait for transaction, then check that purchase was created.
-    console.log(transaction)
-  }).timeout(5000)
 
   it("should create a ()listing", async () => {
     const listingData = {
-      name: "1972 Geo Metro 255K",
+      name: LISTING_NAME,
       category: "Cars & Trucks",
       location: "New York City",
       description:
@@ -55,7 +41,34 @@ describe("Listing Resource", () => {
       price: 3.3
     }
     const schema = "for-sale"
-    await o2oprotocol.listings.create(listingData, schema)
+    waitCreate = await o2oprotocol.listings.create(listingData, schema)
     // Todo: Check that this worked after we have web3 approvals working
   })
+
+  it("should get a listing", async () => {
+    // Wait for test on create success
+    await waitCreate
+
+    // Read last one out & test get same listing
+    const allList = await o2oprotocol.contractService.getAllListingIds()
+    const lastListingIndex = allList[allList.length - 1]
+
+    const listing = await o2oprotocol.listings.getByIndex(lastListingIndex)
+    expect(listing.name).to.equal(LISTING_NAME)
+    expect(listing.index).to.equal(allList[allList.length - 1])
+  })
+
+  it("should buy a listing", async () => {
+    // Wait for test on create success
+    await waitCreate
+    // Test buy
+    const allList = await o2oprotocol.contractService.getAllListingIds()
+    const lastListingIndex = allList[allList.length - 1]
+    const listing = await o2oprotocol.listings.getByIndex(lastListingIndex)
+    const transaction = await o2oprotocol.listings.buy(listing.address, 1, listing.price * 1)
+    //Todo: Currently this test will fail here with a timeout
+    //  because we need to somehow get web3 approve this transaction
+    // Todo: wait for transaction, then check that purchase was created.
+    console.log(transaction)
+  }).timeout(5000)
 })
