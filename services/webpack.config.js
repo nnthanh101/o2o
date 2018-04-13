@@ -38,7 +38,7 @@ const serverConfig = {
 const clientConfig = {
   entry: ["babel-polyfill", "./src/index.js"],
   output: {
-    filename: "./dist/origin.js",
+    filename: "./dist/o2oprotocol.js",
     libraryTarget: "window"
   },
   // devtool: 'inline-source-map',
