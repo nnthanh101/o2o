@@ -1,8 +1,8 @@
 {
   "name": "o2oprotocol",
   "private": true,
-  "version": "0.0.1",
-  "description": "Smart Contracts (create and book listings) without directly interfacing with the Blockchain or IPFS.",
+  "version": "0.0.2",
+  "description": "Smart Contracts (listing, purchase, controller) without directly interfacing with the Blockchain or IPFS.",
   "main": "./dist/index.js",
   "scripts": {
     "precommit": "lint-staged",
@@ -14,9 +14,26 @@
     "test:webpack": "webpack-dev-server --hot --config test/webpack.config.js",
     "test:mocha": "mocha --compilers js:babel-core/register"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://o2oprotocol@github.com/o2oprotocol/o2oprotocol.git"
+  },
+  "keywords": [
+    "O2O Protocol",
+    "Blockchain",
+    "Smart Contract",
+    "Ethereum",
+    "IPFS"
+  ],
   "files": [
     "dist"
   ],
+  "author": "o2oprotocol.io",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/o2oprotocol/o2oprotocol/issues"
+  },
+  "homepage": "https://github.com/o2oprotocol/o2oprotocol#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-inline-json-import": "^0.2.1",
