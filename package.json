@@ -13,7 +13,7 @@
     "test:watch": "watch \"reset && npm test\" test/ contracts/",
     "test:services": "cd services && npm install && npm run test:mocha",
     "chain:private": "ganache-cli -p 8545 &",
-    "ipfs:daemon": "pm2 start ipfs/daemon/index.js --name=IpfsDaemon",
+    "ipfs:daemon": "cd ipfs && npm install && pm2 start ipfs/daemon/index.js --name=IpfsDaemon",
     "migrate:development": "truffle migrate --network development",
     "migrate:kovan": "truffle migrate --network kovan",
     "migrate:rinkeby": "truffle migrate --network rinkeby",
@@ -44,7 +44,6 @@
   "dependencies": {
     "dotenv": "^5.0.1",
     "ipfs-api": "^18.2.1",
-    "ipfs-daemon": "^0.3.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
