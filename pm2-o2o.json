@@ -1,0 +1,13 @@
+{
+	"apps":[
+		{
+			"name":"O2ODevServer",
+			"script":"scripts/dev-server.js"
+		},
+		{
+			"name":"IpfsDaemon",
+			"script":"scripts/ipfs.sh",
+			"interpreter":"bash"
+		}
+	]
+}
