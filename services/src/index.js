@@ -1,11 +1,12 @@
 import ContractService from "./contract-service"
 import IpfsService from "./ipfs-service"
 import UserRegistryService from "./user-registry-service"
+import Listings from "./resources/listings"
 
 // Resources contain mutiple definition of Smart Contract workflows
 // TODO Should load anything inside resources programatically
 const resources = {
-  listings: require("./resources/listings")
+  listings: Listings
 }
 
 class O2OProtocol {

@@ -1,17 +1,17 @@
 // For now, we are just wrapping the methods that are already in
 // contractService and ipfsService.
 
-class Listings {
+export default class Listings {
   constructor({ contractService, ipfsService }) {
     this.contractService = contractService
     this.ipfsService = ipfsService
   }
 
-  async allIds() {
+  allIds = async () => {
     return await this.contractService.getAllListingIds()
   }
 
-  async getByIndex(listingIndex) {
+  getByIndex = async listingIndex => {
     const contractData = await this.contractService.getListing(listingIndex)
     const ipfsData = await this.ipfsService.getFile(contractData.ipfsHash)
     // ipfsService should have already checked the contents match the hash,
@@ -38,7 +38,7 @@ class Listings {
     return listing
   }
 
-  async create(data, schemaType) {
+  create = async (data, schemaType) => {
     if (typeof data.price === "undefined") {
       throw "You must include a price"
     }
@@ -80,9 +80,7 @@ class Listings {
     return transactionReceipt
   }
 
-  async buy(listingAddress, unitsToBuy, ethToPay) {
+  buy = async (listingAddress, unitsToBuy, ethToPay) => {
     return await this.contractService.buyListing(listingAddress, unitsToBuy, ethToPay)
   }
 }
-
-module.exports = Listings
