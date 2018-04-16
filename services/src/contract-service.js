@@ -73,6 +73,7 @@ class ContractService {
       return await listingsRegistryContract.deployed()
     } catch (error) {
       console.log(`Contract not deployed`)
+      console.log(error)
       throw error
     }
   }
@@ -102,18 +103,20 @@ class ContractService {
       // IPFS hash (as bytes32 hex string) is in results[2]
       // Convert it to regular IPFS base-58 encoded hash
       // Address of Listing contract is in: listing[0]
+      const etherPrice = this.web3.fromWei(listing[3], "ether")
+      const price = this.web3.toBigNumber(etherPrice).toNumber()
       const listingObject = {
+        price,
         index: listingId,
         address: listing[0],
         lister: listing[1],
         ipfsHash: this.getIpfsHashFromBytes32(listing[2]),
-        price: this.web3.fromWei(listing[3], "ether").toNumber(),
         unitsAvailable: listing[4].toNumber()
       }
 
       return listingObject
     } catch (error) {
-      throw new Error(`Error fetching listingId: ${listingId}`)
+      throw new Error(`Error fetching listingId: ${listingId}, ${error.message}`)
     }
   }
 

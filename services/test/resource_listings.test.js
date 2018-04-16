@@ -59,6 +59,7 @@ describe("Listing Resource", () => {
     const allList = await o2oprotocol.contractService.getAllListingIds()
     const lastListingIndex = allList[allList.length - 1]
     const listing = await o2oprotocol.listings.getByIndex(lastListingIndex)
+    console.log("lastListingIndex, listing", lastListingIndex, listing)
     const transaction = await o2oprotocol.listings.buy(listing.address, 1, listing.price * 1)
     //Todo: Currently this test will fail here with a timeout
     //  because we need to somehow get web3 approve this transaction
