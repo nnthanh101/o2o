@@ -47,11 +47,10 @@ class ContractService {
 
   submitListing = async (ipfsListing, ethPrice, units) => {
     try {
-      const { currentProvider, eth } = this.web3
-      this.listingsRegistryContract.setProvider(currentProvider)
+      const { eth } = this.web3
 
       const accounts = await promisify(eth.getAccounts.bind(eth))()
-      const instance = await this.listingsRegistryContract.deployed()
+      const instance = await this.getListingsRegistryInstance()
 
       const weiToGive = this.web3.toWei(ethPrice, "ether")
       // Note we cannot get the listingId returned by our contract.
@@ -66,7 +65,7 @@ class ContractService {
     }
   }
 
-  getListingsInstance = async () => {
+  getListingsRegistryInstance = async () => {
     const { listingsRegistryContract, web3 } = this
 
     try {
@@ -85,7 +84,7 @@ class ContractService {
     }
 
     try {
-      const instance = await this.getListingsInstance()
+      const instance = await this.getListingsRegistryInstance()
       const listingsLength = await instance.listingsLength.call()
       return range(0, Number(listingsLength))
     } catch (error) {
@@ -96,7 +95,7 @@ class ContractService {
 
   getListing = async listingId => {
     try {
-      const instance = await this.getListingsInstance()
+      const instance = await this.getListingsRegistryInstance()
       const listing = await instance.getListing.call(listingId)
 
       // Listing is returned as array of properties.
