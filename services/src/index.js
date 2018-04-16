@@ -34,4 +34,4 @@ class O2OProtocol {
   }
 }
 
-export default O2OProtocol
+export { O2OProtocol }
