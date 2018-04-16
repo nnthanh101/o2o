@@ -136,32 +136,24 @@ class ContractService {
     return transactionReceipt
   }
 
-  async waitTransactionFinished(transactionReceipt, pollIntervalMilliseconds = 1000) {
+  async waitTransactionFinished(transactionHash, pollIntervalMilliseconds = 1000) {
     console.log("Waiting for transaction")
     console.log(transactionHash)
+    const web3 = this.web3
     const blockNumber = await new Promise((resolve, reject) => {
       if (!transactionHash) {
         reject(`Invalid transactionHash passed: ${transactionHash}`)
       }
       let txCheckTimer = setInterval(txCheckTimerCallback, pollIntervalMilliseconds)
       function txCheckTimerCallback() {
-        this.web3.eth.getTransaction(transactionHash, (error, transaction) => {
+        web3.eth.getTransaction(transactionHash, (error, transaction) => {
           if (transaction.blockNumber) {
             console.log(`Transaction mined at block ${transaction.blockNumber}`)
             console.log(transaction)
             // TODO: Wait maximum number of blocks
             // TODO: Confirm transaction *sucessful* with getTransactionReceipt()
-
-            // // TODO (Stan): Metamask web3 doesn't have this method. Probably could fix by
-            // // by doing the "copy local web3 over metamask's" technique.
-            // this.web3.eth.getTransactionReceipt(this.props.transactionHash, (error, transactionHash) => {
-            //   console.log(transactionHash)
-            // })
-
+            resolve(transaction.blockNumber)
             clearInterval(txCheckTimer)
-            // Hack to wait two seconds, as results don't seem to be
-            // immediately available.
-            setTimeout(() => resolve(transaction.blockNumber), 2000)
           }
         })
       }
