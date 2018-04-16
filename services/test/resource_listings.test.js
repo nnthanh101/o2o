@@ -1,6 +1,6 @@
 import Web3 from "web3"
 import { expect } from "chai"
-import O2OProtocol from "../src/index.js"
+import { O2OProtocol } from "../src/index.js"
 import { ipfsConfig } from "./fixtures"
 
 describe("Listing Resource", () => {
@@ -65,4 +65,11 @@ describe("Listing Resource", () => {
     // Todo: wait for transaction, then check that purchase was created.
     console.log(transaction)
   }).timeout(5000)
+
+  it("should read block number", async () => {
+    const transactionReceipt = await waitCreate
+    const transactionHash = transactionReceipt.tx
+    const blockNumber = await o2oprotocol.contractService.waitTransactionFinished(transactionHash)
+    expect(blockNumber).to.be.a("number")
+  })
 })
