@@ -382,21 +382,5 @@
     ],
     "image": "samsung-galaxy-tab-s2.png",
     "product_link": "http://www.samsung.com/us/mobile/tablets/all-other-tablets/sm-t713nzwexar-sm-t713nzwexar/"
-  },
-  {
-    "id": "PROD_GALAXY_VIEW_18.4",
-    "title": "Galaxy View 18.4",
-    "name": "Galaxy View 18.4",
-    "price": "399.99",
-    "description": "• Model : SM-T670NZKAXAR\n• Rating: 🌕🌕🌕🌕🌗\n• Price: $399.99",
-    "descriptionCheckOut": "• Model : SM-T670NZKAXAR",
-    "body_html": [
-      "🎲 Dimensions: 18.4\". \n📺 Display: 18.4\" 1920 x 1080 pixels\n📷 Camera: 2.1 (Front). \n💾 Memory: RAM: 2GB, ROM: 32GB.\n📱 OS: Android™ 5.1, Lollipop."
-    ],
-    "category_id": [
-      "CAT_TABLETS_GALAXY_VIEW"
-    ],
-    "image": "samsung-galaxy-tab-view.png",
-    "product_link": "http://www.samsung.com/us/mobile/tablets/galaxy-view/samsung-galaxy-view-18-4-32gb-wi-fi-white-sm-t670nzwaxar/"
   }
 ]
