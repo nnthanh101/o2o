@@ -15,7 +15,7 @@ const runDevServer = () => {
   testrpc.stdout.on("data", data => {
     const msg = data.toString()
     // console.log(`[INFO] ${msg}`)
-    console.log(mgs)
+    console.log(msg)
 
     const isCompleted = msg.includes("Listening on")
     if (isCompleted) {
