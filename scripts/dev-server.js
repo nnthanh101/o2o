@@ -10,7 +10,7 @@ const mnemonic = process.env.MNEMONIC || "guide box joke increase brown kick avo
 const ganacheCli = path.resolve(__dirname, "..", "node_modules", "ganache-cli", "build", "cli.node.js")
 
 const runDevServer = () => {
-  const testrpc = spawn("node", [ganacheCli, "-p=8546", `-m=${mnemonic}`])
+  const testrpc = spawn("node", [ganacheCli, "-p=8545", `-m=${mnemonic}`])
 
   testrpc.stdout.on("data", data => {
     const msg = data.toString()
