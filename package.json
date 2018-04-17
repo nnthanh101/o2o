@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "Smart Contracts (create and book listings) without directly interfacing with the Blockchain or IPFS.",
   "main": "index.js",
+  "engines": {
+    "node": ">=8.10.0"
+  },
   "scripts": {
     "precommit": "lint-staged",
     "pretest": "truffle compile",
