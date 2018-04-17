@@ -49,3 +49,18 @@ export IPFS_ADDRES_GATEWAY=8088
 ```bash
 pm2 start pm2-o2o.json
 ```
+
+### Allow ports
+Port for IPFS
+
+```bash
+# IPFS_ADDRES_API && IPFS_ADDRES_GATEWAY
+sudo ufw allow 5001
+sudo ufw allow 8088
+```
+
+Port for private chain
+
+```bash
+sudo ufw allow 8545
+```
