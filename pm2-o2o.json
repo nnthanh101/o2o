@@ -2,10 +2,12 @@
 	"apps":[
 		{
 			"name":"O2ODevServer",
+			"autorestart" : false,
 			"script":"scripts/dev-server.js"
 		},
 		{
 			"name":"IpfsDaemon",
+			"autorestart" : false,
 			"script":"scripts/ipfs.sh",
 			"interpreter":"bash"
 		}
