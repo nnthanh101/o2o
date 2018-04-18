@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "file-type": "^7.6.0",
-    "read-chunk": "^2.1.0"
+    "read-chunk": "^2.1.0",
+    "truffle-hdwallet-provider": "^0.0.3"
   }
 }

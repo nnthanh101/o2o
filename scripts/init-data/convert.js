@@ -3,7 +3,7 @@ const path = require("path")
 const readChunk = require("read-chunk")
 const fileType = require("file-type")
 
-const BASE_IMG_DIR = path.resolve("product-data", "images")
+const BASE_IMG_DIR = path.join("product-data", "images")
 const DEFAULT_LANG = "en"
 
 /**
@@ -69,7 +69,7 @@ const convertToListingProducts = ({ categories, products, baseImgDir = BASE_IMG_
     const unitsAvailable = Math.floor(Math.random() * 15 + 10)
 
     // Product's pictures as browser base64
-    const imgPath = path.resolve(__dirname, baseImgDir, categoryName, imageName)
+    const imgPath = path.join(__dirname, baseImgDir, categoryName, imageName)
     const pictureBase64 = convertToBrowserBase64(imgPath)
     const pictures = (pictureBase64 && [pictureBase64]) || []
 
