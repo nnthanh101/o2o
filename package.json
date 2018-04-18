@@ -22,7 +22,9 @@
     "migrate:rinkeby": "truffle migrate --network rinkeby",
     "migrate:ropsten": "truffle migrate --network ropsten",
     "migrate:mainnet": "truffle migrate --network mainnet",
-    "deploy:development": "truffle deploy --network development"
+    "deploy:development": "truffle deploy --network development",
+    "demo:init": "cd scripts/init-data && npm install && node index.js",
+    "demo:reset": "cd scripts/init-data && npm install && node reset.js"
   },
   "repository": {
     "type": "git",

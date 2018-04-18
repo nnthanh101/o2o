@@ -47,6 +47,6 @@ const createDefaultListings = () => {
 
 createDefaultListings()
 
-module.exports = {
-  createDefaultListings
-}
+// module.exports = {
+//   createDefaultListings
+// }
