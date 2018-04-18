@@ -1,7 +1,6 @@
 {
   "name": "o2oprotocol",
-  "private": true,
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Smart Contracts (listing, purchase, controller) without directly interfacing with the Blockchain or IPFS.",
   "main": "./dist/index.js",
   "scripts": {
