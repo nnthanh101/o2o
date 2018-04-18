@@ -3,7 +3,7 @@ const path = require("path")
 const readChunk = require("read-chunk")
 const fileType = require("file-type")
 
-const BASE_IMG_DIR = "product-images"
+const BASE_IMG_DIR = path.resolve("product-data", "images")
 const DEFAULT_LANG = "en"
 
 /**
