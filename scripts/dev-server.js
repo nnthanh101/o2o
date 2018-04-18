@@ -145,7 +145,8 @@ const runDevServer = () => {
       publishServices(data => {
         const msg = data.toString()
         console.log(msg)
-        const isPublished = msg.includes("Done")
+        // const isPublished = msg.includes("Done")
+        const isPublished = msg.includes("o2oprotocol@")
         isPublished && resolve(isPublished)
       })
     })
