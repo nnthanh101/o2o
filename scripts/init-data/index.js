@@ -23,19 +23,23 @@ const createDefaultListings = () => {
 
   // o2oprotocol services
   const o2o = new O2OProtocol({ web3, ipfsConfig })
-  const { contractService, ipfsService } = o2o
+  const { contractService, ipfsService, listings } = o2o
 
   // Deploy default listing by account 0
   const listingProducts = convertToListingProducts({ categories, products })
   const wait = Promise.all(
     listingProducts.map(async listingData => {
-      const ipfsHash = await ipfsService.submitFile(listingData)
+      const ipfsData = { data: listingData, schema: "http://localhost:3000/schemas/mobile-tablet.json" }
+      const ipfsHash = await ipfsService.submitFile(ipfsData)
       const total = await contractService.submitListing(ipfsHash, listingData.price, listingData.unitsAvailable)
       return ipfsHash
     })
   )
 
-  wait.then(console.log)
+  wait.then(hashList => {
+    console.log("[INFO] DEMO PRODUCTS IPFS HASH")
+    console.log(hashList)
+  })
 
   // listings.reset()
 }

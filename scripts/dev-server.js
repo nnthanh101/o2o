@@ -2,10 +2,10 @@ const spawn = require("cross-spawn")
 const path = require("path")
 
 // Const
-const projectPath = path.resolve(__dirname, "..")
-const servicesDir = path.resolve(projectPath, "services")
+const projectPath = path.join(__dirname, "..")
+const servicesDir = path.join(projectPath, "services")
 const mnemonic = process.env.MNEMONIC || "guide box joke increase brown kick avoid toe wedding sure swift seek"
-const ganacheCli = path.resolve(projectPath, "node_modules", "ganache-cli", "build", "cli.node.js")
+const ganacheCli = path.join(projectPath, "node_modules", "ganache-cli", "build", "cli.node.js")
 
 // Support functions
 
@@ -60,6 +60,7 @@ const deploySmartContract = (cbStdOut, cdStdErr) => {
 
 const buildServices = (cbStdOut, cdStdErr) => {
   log("[INFO] BUILD SERVICES")
+  spawn.sync("npm", ["install"], { stdio: "inherit", cwd: servicesDir })
   watchLogSpawn("npm", ["run", "build"], { cwd: servicesDir }, cbStdOut, cdStdErr)
 }
 
@@ -70,7 +71,7 @@ const buildServices = (cbStdOut, cdStdErr) => {
  */
 const publishServices = (cbStdOut, cdStdErr) => {
   log("[INFO] PUBLISH SERVICES")
-  const packagePath = path.resolve(servicesDir, "package.json")
+  const packagePath = path.join(servicesDir, "package.json")
   const packageObj = require(packagePath)
   const currVerion = packageObj.version
   const newVersion = increaseVersion(currVerion)
