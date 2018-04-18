@@ -64,3 +64,23 @@ Port for private chain
 ```bash
 sudo ufw allow 8545
 ```
+
+
+### Auto publish
+Publish o2oprotocol services with yarn
+
++ Install yarn
+
+```bash
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - &&
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list &&
+sduo apt-get update && sudo apt-get install yarn
+```
++ Login first
+
+```bash
+yarn login
+```
+
+After login success, current user has npm token to publish `o2oprotocol`
+
