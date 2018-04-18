@@ -4,6 +4,7 @@ const path = require("path")
 // Const
 const projectPath = path.join(__dirname, "..")
 const servicesDir = path.join(projectPath, "services")
+const initDataDir = path.join(projectPath, "scripts", "init-data")
 const mnemonic = process.env.MNEMONIC || "guide box joke increase brown kick avoid toe wedding sure swift seek"
 const ganacheCli = path.join(projectPath, "node_modules", "ganache-cli", "build", "cli.node.js")
 
@@ -93,6 +94,12 @@ const increaseVersion = semanticVersion => {
   }
 }
 
+const initData = (cbStdOut, cdStdErr) => {
+  log("[INFO] INIT DATA")
+  spawn.sync("npm", ["install"], { stdio: "inherit", cwd: initDataDir })
+  watchLogSpawn("node", ["index.js"], { cwd: initDataDir }, cbStdOut, cdStdErr)
+}
+
 /**
  * Run Dev Server task:
  * + Run private blockchain
@@ -132,6 +139,7 @@ const runDevServer = () => {
   })
 
   const waitPublish = waitBuild.then(() => {
+    // return Promise.resolve()
     return new Promise(resolve => {
       publishServices(data => {
         const msg = data.toString()
@@ -142,7 +150,18 @@ const runDevServer = () => {
     })
   })
 
-  waitPublish.then(() => log("[INFO] Finished."))
+  const waitInitData = waitPublish.then(() => {
+    return new Promise(resolve => {
+      initData(data => {
+        const msg = data.toString()
+        console.log(msg)
+        const isFinished = msg.includes("Init data finished")
+        isFinished && resolve(isFinished)
+      })
+    })
+  })
+
+  waitInitData.then(() => console.log("[INFO] Finished."))
 }
 
 runDevServer()

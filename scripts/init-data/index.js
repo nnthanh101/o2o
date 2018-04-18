@@ -39,6 +39,7 @@ const createDefaultListings = () => {
   wait.then(hashList => {
     console.log("[INFO] DEMO PRODUCTS IPFS HASH")
     console.log(hashList)
+    console.log("Init data finished.")
   })
 
   // listings.reset()
