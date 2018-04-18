@@ -64,6 +64,35 @@ const buildServices = (cbStdOut, cdStdErr) => {
 }
 
 /**
+ * Simple increase semantic version
+ * @param cbStdOut
+ * @param cdStdErr
+ */
+const publishServices = (cbStdOut, cdStdErr) => {
+  log("[INFO] PUBLISH SERVICES")
+  const packagePath = path.resolve(servicesDir, "package.json")
+  const packageObj = require(packagePath)
+  const currVerion = packageObj.version
+  const newVersion = increaseVersion(currVerion)
+  watchLogSpawn("yarn", ["publish", "--new-version", newVersion], { cwd: servicesDir }, cbStdOut, cdStdErr)
+}
+
+const increaseVersion = semanticVersion => {
+  try {
+    const matches = semanticVersion.match(/(\d+).(\d+).(\d+)/)
+
+    // Sample matches: ["1.4.5", "1", "4", "5", index: 0,...]
+    const [, major, mirror, patch] = matches
+    const newPatch = +patch + 1
+    const newVersion = `${major}.${mirror}.${newPatch}`
+    return newVersion
+  } catch (err) {
+    console.log("[ERR]", err.message)
+    throw new Error("Fail to increase semantic version")
+  }
+}
+
+/**
  * Run Dev Server task:
  * + Run private blockchain
  * + Deploy smart contract
@@ -102,8 +131,17 @@ const runDevServer = () => {
   })
 
   const waitPublish = waitBuild.then(() => {
-    console.log("[INFO] Publish o2oprotocol services")
+    return new Promise(resolve => {
+      publishServices(data => {
+        const msg = data.toString()
+        console.log(msg)
+        const isPublished = msg.includes("Done")
+        isPublished && resolve(isPublished)
+      })
+    })
   })
+
+  waitPublish.then(() => log("[INFO] Finished."))
 }
 
 runDevServer()
