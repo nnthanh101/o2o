@@ -72,11 +72,12 @@ const buildServices = (cbStdOut, cdStdErr) => {
  */
 const publishServices = (cbStdOut, cdStdErr) => {
   log("[INFO] PUBLISH SERVICES")
-  const packagePath = path.join(servicesDir, "package.json")
-  const packageObj = require(packagePath)
-  const currVerion = packageObj.version
-  const newVersion = increaseVersion(currVerion)
-  watchLogSpawn("yarn", ["publish", "--new-version", newVersion], { cwd: servicesDir }, cbStdOut, cdStdErr)
+  // const packagePath = path.join(servicesDir, "package.json")
+  // const packageObj = require(packagePath)
+  // const currVerion = packageObj.version
+  // const newVersion = increaseVersion(currVerion)
+  // watchLogSpawn("npm", ["publish", "--new-version", newVersion], { cwd: servicesDir }, cbStdOut, cdStdErr)
+  watchLogSpawn("npm", ["publish"], { cwd: servicesDir }, cbStdOut, cdStdErr)
 }
 
 const increaseVersion = semanticVersion => {
