@@ -26,10 +26,10 @@ const createDefaultListings = () => {
   const listings = o2o.listings
   console.log(listings)
 
-  listings.reset()
+  // listings.reset()
 }
 
-createDefaultListings()
+// createDefaultListings()
 
 module.exports = {
   createDefaultListings
