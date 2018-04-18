@@ -3,17 +3,25 @@ const path = require("path")
 const readChunk = require("read-chunk")
 const fileType = require("file-type")
 
+const BASE_IMG_DIR = "product-images"
+const DEFAULT_LANG = "en"
+
 /**
  * Convert image file to browser base64
  * @param imgPath
- * @returns {string}
+ * @returns {string|null}
  */
 const convertToBrowserBase64 = imgPath => {
-  const base64 = fs.readFileSync(imgPath, "base64")
-  const buffer = readChunk.sync(imgPath, 0, 4100)
-  const { mime } = fileType(buffer)
-  const fileName = path.basename(imgPath)
-  return `data:${mime};name=${fileName};base64,${base64}`
+  try {
+    const base64 = fs.readFileSync(imgPath, "base64")
+    const buffer = readChunk.sync(imgPath, 0, 4100)
+    const { mime } = fileType(buffer)
+    const fileName = path.basename(imgPath)
+    return `data:${mime};name=${fileName};base64,${base64}`
+  } catch (err) {
+    console.log("[ERR]", err.message, err.stack)
+    return null
+  }
 }
 
 /**
@@ -40,10 +48,10 @@ const findCatById = (categories, id) => {
  * Convert Samsung product to Listing product format
  * @param categories
  * @param products
- * @param baseImageDir
+ * @param baseImgDir
  * @param lang
  */
-const convertToListingProducts = ({ categories, products, baseImageDir = "product-images", lang = "en" }) => {
+const convertToListingProducts = ({ categories, products, baseImgDir = BASE_IMG_DIR, lang = DEFAULT_LANG }) => {
   const localeCats = categories[lang]
   const ETH_USD = process.env.ETH_USD || 516.34
 
@@ -61,9 +69,9 @@ const convertToListingProducts = ({ categories, products, baseImageDir = "produc
     const unitsAvailable = Math.floor(Math.random() * 15 + 10)
 
     // Product's pictures as browser base64
-    const imgPath = path.resolve(__dirname, baseImageDir, categoryName, imageName)
+    const imgPath = path.resolve(__dirname, baseImgDir, categoryName, imageName)
     const pictureBase64 = convertToBrowserBase64(imgPath)
-    const pictures = [pictureBase64]
+    const pictures = (pictureBase64 && [pictureBase64]) || []
 
     // Quick description
     const firstDescriptionHtml = descriptions[0]
