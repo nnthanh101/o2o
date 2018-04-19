@@ -109,14 +109,15 @@ const initData = (cbStdOut, cdStdErr) => {
  * + Publish o2oprotocol in "services" dir
  */
 const runDevServer = () => {
-  const waitRun = new Promise(resolve => {
-    runPrivateChain(data => {
-      const msg = data.toString()
-      console.log(msg)
-      const isCompleted = msg.includes("Listening on")
-      isCompleted && resolve(isCompleted)
-    })
-  })
+  const waitRun = Promise.resolve()
+  // const waitRun = new Promise(resolve => {
+  //   runPrivateChain(data => {
+  //     const msg = data.toString()
+  //     console.log(msg)
+  //     const isCompleted = msg.includes("Listening on")
+  //     isCompleted && resolve(isCompleted)
+  //   })
+  // })
 
   const waitDeploy = waitRun.then(() => {
     return new Promise(resolve => {
