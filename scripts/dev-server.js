@@ -52,7 +52,7 @@ const watchLogSpawn = (cmd, args, options = {}, cbStdOut, cbStdErr = throwExcept
 const runPrivateChain = (cbStdOut, cbStdErr) => {
   log("[INFO] RUN PRIVATE CHAIN")
   // watchLogSpawn("node", [ganacheCli, "-p=8545", "-e=99", `-m="${mnemonic}"`], {}, cbStdOut, cbStdErr)
-  watchLogSpawn(ganacheCli, ["-p=8545", "-e=99", `-m=${mnemonic}`], {}, cbStdOut, cbStdErr)
+  watchLogSpawn(ganacheCli, ["-p=8545", "-e=155", `-m=${mnemonic}`], {}, cbStdOut, cbStdErr)
 }
 
 const deploySmartContract = (cbStdOut, cdStdErr) => {
