@@ -11,7 +11,7 @@ const options = {
     // 1 - Test Account    0xecCF15CACcE5274481928Bf244736b1cec45d142
     {
       secretKey: "0x41aa7ac0cc200ce8c4b644ffa8a4909f054bc0b841b92b06243c51351200ac40",
-      balance: 10000000000000000000
+      balance: 110000000000000000000
     }
   ],
   debug: false,
@@ -21,14 +21,14 @@ const options = {
   blocktime: 0
 }
 
-const getAccountInfo = (blockchain, address, index) => {
-  const isUnlocked = blockchain.isUnlocked(address)
+const getAccountInfo = (chainState, address, index) => {
+  const isUnlocked = chainState.isUnlocked(address)
   const unlockIcon = isUnlocked ? " 🔒" : ""
-  const privateKey = blockchain.accounts[address].secretKey.toString("hex")
+  const privateKey = chainState.accounts[address].secretKey.toString("hex")
   return `(${index}) ${address}${unlockIcon}, pKey: ${privateKey}`
 }
 
-TestRPC.server(options).listen(options.port, (err, state) => {
+TestRPC.server(options).listen(options.port, (err, chainState) => {
   if (err) {
     console.log("[ERR]", err.message, err.stack)
     console.log(err)
@@ -40,7 +40,7 @@ TestRPC.server(options).listen(options.port, (err, state) => {
   console.log("Accounts:")
 
   // Info all acounts we have
-  Object.keys(state.accounts).forEach((address, index) => console.log(getAccountInfo(state, address, index)))
+  Object.keys(chainState.accounts).forEach((address, index) => console.log(getAccountInfo(chainState, address, index)))
 
   // Confirm which port used
   const hostname = options.hostname || "localhost"
