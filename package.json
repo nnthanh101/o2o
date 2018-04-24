@@ -58,7 +58,7 @@
     "truffle": "4.0.5",
     "truffle-hdwallet-provider": "^0.0.3",
     "uport-connect": "^0.7.1",
-    "web3": "^1.0.0-beta.33"
+    "web3": "^0.20.1"
   },
   "devDependencies": {
     "cross-spawn": "^6.0.5",
