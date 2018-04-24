@@ -69,7 +69,9 @@
     "nodemon": "^1.12.4",
     "prettier": "^1.4.4",
     "solidity-coverage": "^0.4.14",
-    "solium": "^1.1.6"
+    "solium": "^1.1.6",
+    "file-type": "^7.6.0",
+    "read-chunk": "^2.1.0"
   },
   "lint-staged": {
     "*.js": [

@@ -15,10 +15,10 @@ const options = {
     }
   ],
   debug: false,
-  logger: {
-    log: console.log
-  },
-  blocktime: 0
+  logger: console,
+  blocktime: 0,
+  gasLimit: 6721975,
+  gasPrice: 100000000000
 }
 
 const getAccountInfo = (chainState, address, index) => {
