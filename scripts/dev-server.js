@@ -98,7 +98,7 @@ const increaseVersion = semanticVersion => {
 
 const initData = (cbStdOut, cdStdErr) => {
   log("[INFO] INIT DATA")
-  spawn.sync("npm", ["install"], { stdio: "inherit", cwd: initDataDir })
+  // spawn.sync("npm", ["install"], { stdio: "inherit", cwd: initDataDir })
   watchLogSpawn("node", ["index.js"], { cwd: initDataDir }, cbStdOut, cdStdErr)
 }
 
