@@ -109,4 +109,31 @@ Run a subset of tests using the `grep` query string parameter, for example: http
 
 ## Documentation
 
+- `package.json`
+  "form-data": "^2.3.2",
+  "ipfs-api": "^14.3.7",
 
+- actual gas cost by running web3.eth.getTransactionReceipt(txId)
+
+- Store IPFS and contract data separately
+
+-  [the upcoming version of web3](https://web3js.readthedocs.io/en/1.0/) will work with truffle
+
+- Return custom objects instead of raw web3 transactions from API
+
+- Move logic out of `Listing` contract
+
+- Discussion around how to do smart contract migrations
+
+- Listings expire 60 days after creation.
+
+-  there are six events that affect transaction state, each caused by the action of a sole party, and two of them (5 & 6) being potentionally out of sequence:
+
+Create listing (seller)
+Buy listing (buyer) - presumed to be the equivalent of sending money
+Fulfill order (seller)
+Receive order (buyer)
+Withdraw funds (seller)
+Provide feedback (buyer)
+
+- Data verification for JSON schema listings
