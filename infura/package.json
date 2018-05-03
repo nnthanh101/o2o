@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "eth-block-tracker": "^2.3.0",
-    "ethjs-provider-http": "^0.1.6"
-  }
-}

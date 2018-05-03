@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "ipfs-api": "^19.0.0"
-  },
-  "scripts": {
-    "start": "node index.js"
-  }
-}
