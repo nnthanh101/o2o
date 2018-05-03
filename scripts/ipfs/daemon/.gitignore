@@ -1,0 +1,4 @@
+node_modules
+
+# IPFS dir to store real file
+ipfs-data
