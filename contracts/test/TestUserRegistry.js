@@ -1,50 +1,75 @@
-const contractDefinition = artifacts.require('UserRegistry.sol');
+const web3Utils = require("web3-utils")
+
+const UserRegistry = artifacts.require("./UserRegistry.sol")
+const ClaimHolderPresigned = artifacts.require(
+  "./dentity/ClaimHolderPresigned.sol"
+)
+const testData = require("./TestData.json");
 
 // Used to assert error cases
 const isEVMError = function(err) {
-  let str = err.toString();
-  return str.includes("revert");
+  let str = err.toString()
+  return str.includes("revert")
 }
 
-const ipfsHash_1 = '0x4f32f7a7d40b4d65a917926cbfd8fd521483e7472bcc4d024179735622447dc9';
-const ipfsHash_2 = '0xa183d4eb3552e730c2dd3df91384426eb88879869b890ad12698320d8b88cb48';
+const signature_1 = testData.SIGNATURE_1
+const ipfsHash = testData.IPFS_HASH_FILE
 
-contract('UserRegistry', accounts => {
-  var instance;
+contract("UserRegistry", accounts => {
+  let userRegistry
+  let attestation_1 = {
+    claimType: 1,
+    scheme: 1,
+    issuer: accounts[1],
+    signature: signature_1,
+    data: ipfsHash_1,
+    uri: ""
+  }
 
-  beforeEach(async function() {
-    instance = await contractDefinition.new({from: accounts[0]});
-  });
+  beforeEach(async () => {
+    userRegistry = await UserRegistry.new({ from: accounts[0] })
+  })
 
-  // it('should be able to create a user', async function() {
-  //   await instance.create(ipfsHash_1, {from: accounts[0]});
-  //   let [owner, ipfsHash] = await instance.users(0);
-  //   assert.equal(owner, accounts[0], 'new user has correct owner')
-  //   assert.equal(ipfsHash, ipfsHash_1, 'new user has correct ipfsHash')
-  // });
-  //
-  // it('should allow owner to update a user', async function() {
-  //   await instance.create(ipfsHash_1, {from: accounts[0]});
-  //   await instance.update(0, ipfsHash_2, {from: accounts[0]});
-  //   let [owner, ipfsHash] = await instance.users(0);
-  //   assert.equal(ipfsHash, ipfsHash_2, 'ipfsHash has been updated')
-  // });
-  //
-  // it('should not allow non-owner to update a user', async function() {
-  //   await instance.create(ipfsHash_1, {from: accounts[0]});
-  //   try {
-  //     await instance.update(0, ipfsHash_2, {from: accounts[1]})
-  //   } catch (err) {
-  //     assert.ok(isEVMError(err), 'an EVM error is thrown');
-  //     let [owner, ipfsHash] = await instance.users(0);
-  //     assert.equal(ipfsHash, ipfsHash_1, 'ipfsHash has not been updated')
-  //   }
-  // });
+  it("should be able to create a user", async function() {
+    let create = await userRegistry.create({ from: accounts[1] })
+    let identityAddress = await userRegistry.users(accounts[1])
+    let newUserEvent = create.logs.find(e => e.event == "NewUser")
+    assert.ok(identityAddress)
+    assert.notEqual(
+      identityAddress,
+      "0x0000000000000000000000000000000000000000"
+    )
+    assert.equal(newUserEvent.args["_identity"], identityAddress)
+  })
 
-  it('should be able to set a user', async function() {
-    await instance.set(ipfsHash_1, {from: accounts[0]});
-    let [ipfsHash, isSet] = await instance.users(accounts[0]);
-    assert.equal(isSet, true, 'user has been set');
-    assert.equal(ipfsHash, ipfsHash_1, 'user has correct ipfsHash');
-  });
+  it("should be able to create a user with claims", async function() {
+    let createWithClaims = await userRegistry.createWithClaims(
+      [attestation_1.claimType],
+      [attestation_1.issuer],
+      attestation_1.signature,
+      attestation_1.data,
+      [32],
+      { from: accounts[1] }
+    )
+    let identityAddress = await userRegistry.users(accounts[1])
+    let newUserEvent = createWithClaims.logs.find(e => e.event == "NewUser")
+    assert.ok(identityAddress)
+    assert.equal(newUserEvent.args["_identity"], identityAddress)
+
+    // Check that claim was added
+    let identity = ClaimHolderPresigned.at(identityAddress)
+    let claimId = web3Utils.soliditySha3(
+      attestation_1.issuer,
+      attestation_1.claimType
+    )
+    let fetchedClaim = await identity.getClaim(claimId, { from: accounts[1] })
+    assert.ok(fetchedClaim)
+    let [claimType, scheme, issuer, signature, data, uri] = fetchedClaim
+    assert.equal(claimType.toNumber(), attestation_1.claimType)
+    assert.equal(scheme.toNumber(), attestation_1.scheme)
+    assert.equal(issuer, attestation_1.issuer)
+    assert.equal(signature, attestation_1.signature)
+    assert.equal(data, attestation_1.data)
+    assert.equal(uri, attestation_1.uri)
+  })
 })

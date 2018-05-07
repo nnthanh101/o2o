@@ -6,6 +6,7 @@ var serverConfig = {
     filename: './dist/index.js',
     libraryTarget: 'commonjs2'
   },
+  mode: 'development',
   devtool: 'inline-source-map',
   target: 'node',
   externals: [nodeExternals()],
@@ -19,7 +20,7 @@ var serverConfig = {
     */
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
@@ -39,10 +40,11 @@ var clientConfig = {
     filename: './dist/o2oprotocol.js',
     libraryTarget: 'window'
   },
+  mode: 'development',
   devtool: 'inline-source-map',
   target: 'web',
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,

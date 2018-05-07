@@ -1,76 +1,118 @@
-import Web3 from "web3"
 import { expect } from "chai"
-import { O2OProtocol } from "../src/index.js"
-import { ipfsConfig } from "./fixtures"
+import Listings from "../src/resources/listings.js"
+import ContractService from "../src/contract-service.js"
+import IpfsService from "../src/ipfs-service.js"
+import Web3 from "web3"
 
-describe("Listing Resource", () => {
-  let o2oprotocol
-  let testListingIds
-  let waitCreate
-  const LISTING_NAME = "1972 Geo Metro 255K"
+describe("Listing Resource", function() {
+  this.timeout(5000) // default is 2000
+
+  var listings
+  var contractService
+  var ipfsService
+  var testListingIds
 
   before(async () => {
-    // web3
-    const provider = new Web3.providers.HttpProvider("http://localhost:8545")
-    const web3 = new Web3(provider)
+    let provider = new Web3.providers.HttpProvider("http://localhost:8545")
+    let web3 = new Web3(provider)
+    contractService = new ContractService({ web3 })
+    ipfsService = new IpfsService({
+      ipfsDomain: "127.0.0.1",
+      ipfsApiPort: "5002",
+      ipfsGatewayPort: "8080",
+      ipfsGatewayProtocol: "http"
+    })
+    listings = new Listings({ contractService, ipfsService })
+    testListingIds = await contractService.getAllListingIds()
 
-    // ipfsConfig
-    o2oprotocol = new O2OProtocol({ web3, ipfsConfig })
-    testListingIds = await o2oprotocol.contractService.getAllListingIds()
+    // Ensure that there are at least 2 sample listings
+    await listings.create({ name: "Sample Listing 1", price: 1 }, "")
+    await listings.create({ name: "Sample Listing 2", price: 1 }, "")
   })
 
   it("should get all listing ids", async () => {
-    const ids = await o2oprotocol.listings.allIds()
+    const ids = await listings.allIds()
     expect(ids.length).to.be.greaterThan(1)
   })
 
-  it("should create a ()listing", async () => {
+  it("should get a listing by index", async () => {
+    await listings.create({ name: "Foo Bar", price: 1 }, "")
+    let listingIds = await contractService.getAllListingIds()
+    const listing = await listings.getByIndex(listingIds[listingIds.length - 1])
+    expect(listing.name).to.equal("Foo Bar")
+    expect(listing.index).to.equal(listingIds.length - 1)
+  })
+
+  it("should get a listing by address", async () => {
+    await listings.create({ name: "Foo Bar", price: 1 }, "")
+    let listingIds = await contractService.getAllListingIds()
+    const listingFromIndex = await listings.getByIndex(
+      listingIds[listingIds.length - 1]
+    )
+    const listing = await listings.get(listingFromIndex.address)
+    expect(listing.name).to.equal("Foo Bar")
+  })
+
+  it("should buy a listing", async () => {
+    await listings.create({ name: "My Listing", price: 1 }, "")
+    let listingIds = await contractService.getAllListingIds()
+    const listing = await listings.getByIndex(listingIds[listingIds.length - 1])
+    const transaction = await listings.buy(
+      listing.address,
+      1,
+      listing.price * 1
+    )
+  })
+
+  it("should create a listing", async () => {
     const listingData = {
-      name: LISTING_NAME,
+      name: "Vinhomes",
       category: "Cars & Trucks",
-      location: "New York City",
+      location: "Sai Gon",
       description:
-        "The American auto-show highlight reel will be disproportionately concentrated on the happenings in New York.",
+        "The auto-show highlight reel will be disproportionately concentrated on the happenings in Sai Gon.",
       pictures: undefined,
       price: 3.3
     }
     const schema = "for-sale"
-    waitCreate = await o2oprotocol.listings.create(listingData, schema)
+    await listings.create(listingData, schema)
     // Todo: Check that this worked after we have web3 approvals working
   })
 
-  it("should get a listing", async () => {
-    // Wait for test on create success
-    await waitCreate
+  it("should close a listing", async () => {
+    await listings.create(
+      { name: "Closing Listing", price: 1, unitsAvailable: 1 },
+      ""
+    )
+    let listingIds = await contractService.getAllListingIds()
+    const listingIndex = listingIds[listingIds.length - 1]
 
-    // Read last one out & test get same listing
-    const allList = await o2oprotocol.contractService.getAllListingIds()
-    const lastListingIndex = allList[allList.length - 1]
+    const listingBefore = await listings.getByIndex(listingIndex)
+    expect(listingBefore.unitsAvailable).to.equal(1)
 
-    const listing = await o2oprotocol.listings.getByIndex(lastListingIndex)
-    expect(listing.name).to.equal(LISTING_NAME)
-    expect(listing.index).to.equal(allList[allList.length - 1])
+    await listings.close(listingBefore.address)
+
+    const listingAfter = await listings.getByIndex(listingIndex)
+    expect(listingAfter.unitsAvailable).to.equal(0)
   })
 
-  it("should buy a listing", async () => {
-    // Wait for test on create success
-    await waitCreate
-    // Test buy
-    const allList = await o2oprotocol.contractService.getAllListingIds()
-    const lastListingIndex = allList[allList.length - 1]
-    const listing = await o2oprotocol.listings.getByIndex(lastListingIndex)
-    console.log("lastListingIndex, listing", lastListingIndex, listing)
-    const transaction = await o2oprotocol.listings.buy(listing.address, 1, listing.price * 1)
-    //Todo: Currently this test will fail here with a timeout
-    //  because we need to somehow get web3 approve this transaction
-    // Todo: wait for transaction, then check that purchase was created.
-    console.log(transaction)
-  }).timeout(5000)
+  describe("Getting purchase addresses", async () => {
+    var listing
+    before(async () => {
+      await listings.create({ name: "My Listing", price: 1 }, "")
+      const listingIds = await contractService.getAllListingIds()
+      listing = await listings.getByIndex(listingIds[listingIds.length - 1])
+      const transaction = await listings.buy(listing.address, 1, 1)
+    })
 
-  it("should read block number", async () => {
-    const transactionReceipt = await waitCreate
-    const transactionHash = transactionReceipt.tx
-    const blockNumber = await o2oprotocol.contractService.waitTransactionFinished(transactionHash)
-    expect(blockNumber).to.be.a("number")
+    it("should get the number of purchases", async () => {
+      const numPurchases = await listings.purchasesLength(listing.address)
+      expect(numPurchases).to.equal(1)
+    })
+
+    it("should get the address of a purchase", async () => {
+      const address = await listings.purchaseAddressByIndex(listing.address, 0)
+      expect(address.slice(0, 2)).to.equal("0x")
+    })
   })
 })

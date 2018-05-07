@@ -117,7 +117,7 @@ If you get the following error:
 
 1. Clone
 ```
-git clone https://github.com/OriginProtocol/platform origin-platform && cd origin-platform
+git clone https://github.com/o2oprotocol/o2oprotocol o2o-platform && cd o2o-platform
 ```
 
 2. Setup (shortcut for `npm install && npm link`). Linking makes this available as a local npm package for local dapp development.
@@ -130,27 +130,27 @@ git clone https://github.com/OriginProtocol/platform origin-platform && cd origi
  npm start
  ```
 
- 4. To develop against a working dapp and UI, see [the instructions in our demo dapp](https://github.com/OriginProtocol/demo-dapp#developing-with-a-local-chain).
+ 4. To develop against a working dapp and UI, see [the instructions in our demo dapp](https://github.com/o2oprotocol/dapp-boilerplate).
 
  ## Import
 
  ```
- import Origin from '@o2oprotocol/o2oprotocol'
+ import O2OProtocol from '@o2oprotocol/o2oprotocol'
 
  let configOptions = {}
 
- let { contractService, ipfsService, originService } = new Origin(configOptions)
+ let { contractService, ipfsService, o2oService } = new O2OProtocol(configOptions)
  ```
 
  ## Configuration Options
 
- Config options are passed into the Origin constructor at instantiation.
+ Config options are passed into the O2OProtocol constructor at instantiation.
 
  ```
  let configOptions = {
    option: 'value'
  }
- let origin = new Origin(configOptions)
+ let origin = new O2OProtocol(configOptions)
  ```
 
  Valid options:

@@ -2,113 +2,75 @@
  * IPFS interface
  */
 
-const ipfsAPI = require("ipfs-api")
 const MapCache = require("map-cache")
-const promisify = require("util.promisify")
+const fetch = require("cross-fetch")
+const FormData = require("form-data")
+
+const Ports = {
+  http: "80",
+  https: "443"
+}
 
 class IpfsService {
-  constructor(options) {
-    // Default option point to o2oprotocol
-    const defaultOption = {
-      ipfsDomain: "gateway.o2oprotocol.io",
-      ipfsApiPort: "5001",
-      ipfsGatewayPort: "",
-      ipfsProtocol: "https"
+  constructor({
+    ipfsGatewayProtocol = "https",
+    ipfsDomain = "gateway.o2oprotocol.io",
+    ipfsGatewayPort = "443",
+    ipfsApiPort = "443"
+  } = {}) {
+    this.gateway = `${ipfsGatewayProtocol}://${ipfsDomain}`
+    this.api = `${ipfsGatewayProtocol}://${ipfsDomain}`
+
+    if (ipfsGatewayPort && Ports[ipfsGatewayProtocol] !== ipfsGatewayPort) {
+      this.gateway += `:${ipfsGatewayPort}`
+    }
+    if (ipfsApiPort && Ports[ipfsGatewayProtocol] !== ipfsApiPort) {
+      this.api += `:${ipfsApiPort}`
     }
 
-    // Merged option
-    const mergedOption = Object.assign({}, defaultOption, options)
-
-    // Instance properties
-    this.ipfsConfig = mergedOption
     this.mapCache = new MapCache()
-
-    const { ipfsDomain, ipfsApiPort, ipfsProtocol } = this.ipfsConfig
-    this.ipfs = ipfsAPI(ipfsDomain, ipfsApiPort, { protocol: ipfsProtocol })
-
-    //@TODO as private node, shoudl run swarm peers?
-    this.ipfs.swarm.peers(error => {
-      if (error) {
-        console.error("IPFS - Can't connect to the IPFS API.")
-        console.error(error)
-      }
-    })
   }
 
-  submitFile = async jsonData => {
-    const file = {
-      path: "file.json",
-      content: JSON.stringify(jsonData)
-    }
-
-    const addFile = promisify(this.ipfs.files.add.bind(this.ipfs.files))
-
-    let response
+  async submitFile(jsonData) {
     try {
-      response = await addFile([file])
-    } catch (error) {
-      console.error("Can't connect to IPFS.", error)
-      throw new Error("Can't connect to IPFS. Failure to submit file to IPFS")
-    }
+      var formData = new FormData()
+      formData.append("file", this.content(jsonData))
 
-    const ipfsHashStr = response[0].hash
-    if (!ipfsHashStr) {
-      throw new Error("Failure to submit file to IPFS")
+      var rawRes = await fetch(`${this.api}/api/v0/add`, {
+        method: "POST",
+        body: formData
+      })
+      var res = await rawRes.json()
+      this.mapCache.set(res.Hash, jsonData)
+      return res.Hash
+    } catch (e) {
+      throw e
+      throw new Error("Failure to submit file to IPFS", e)
     }
-
-    this.mapCache.set(ipfsHashStr, jsonData)
-    return ipfsHashStr
   }
 
-  getFile = async ipfsHashStr => {
-    // Check for cache hit
+  content(data) {
+    if (typeof Blob === "undefined") {
+      return new Buffer(JSON.stringify(data))
+    } else {
+      return new Blob([JSON.stringify(data)])
+    }
+  }
+
+  async getFile(ipfsHashStr) {
     if (this.mapCache.has(ipfsHashStr)) {
       return this.mapCache.get(ipfsHashStr)
     }
 
-    const catFile = promisify(this.ipfs.files.cat.bind(this.ipfs.files))
+    const response = await fetch(this.gatewayUrlForHash(ipfsHashStr))
+    var ipfsData = await response.json()
+    this.mapCache.set(ipfsHashStr, ipfsData)
 
-    // Get from IPFS network
-    let stream
-    try {
-      stream = await catFile(ipfsHashStr)
-    } catch (error) {
-      console.error(error)
-      throw new Error("Got ipfs cat err:" + error)
-    }
-
-    return await new Promise((resolve, reject) => {
-      let res = ""
-      stream.on("data", chunk => {
-        res += chunk.toString()
-      })
-      stream.on("error", err => {
-        reject("Got ipfs cat stream err:" + err)
-      })
-      stream.on("end", () => {
-        let parsedResponse
-        try {
-          parsedResponse = JSON.parse(res)
-        } catch (error) {
-          reject(`Failed to parse response JSON: ${error}`)
-          return
-        }
-        this.mapCache.set(ipfsHashStr, parsedResponse)
-        resolve(parsedResponse)
-      })
-    })
+    return ipfsData
   }
 
-  gatewayUrlForHash = ipfsHashStr => {
-    const { ipfsProtocol, ipfsDomain, ipfsGatewayPort } = this.ipfsConfig
-
-    const defaultPort = ipfsProtocol === "https" ? "443" : "80"
-    const gatewayPort = String(ipfsGatewayPort)
-
-    const shouldAddPort = gatewayPort.length > 0 && gatewayPort !== defaultPort
-    const port = shouldAddPort ? `:${gatewayPort}` : ""
-
-    return `${ipfsProtocol}://${ipfsDomain}${port}/ipfs/${ipfsHashStr}`
+  gatewayUrlForHash(ipfsHashStr) {
+    return `${this.gateway}/ipfs/${ipfsHashStr}`
   }
 }
 

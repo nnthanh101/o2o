@@ -1,4 +1,4 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.21;
 
 /// @title Listing
 /// @dev Used to keep marketplace of listings for buyers and sellers
@@ -43,36 +43,11 @@ contract ListingsRegistry {
    * Public functions
    */
 
-  function ListingsRegistry()
+  constructor()
     public
   {
     // Defines O2O admin address - may be removed for public deployment
     owner = msg.sender;
-
-    // Sample Listings - May be removed for public deployment
-    testingAddSampleListings();
-  }
-
-  //TODO: @depreciated ???
-  function testingAddSampleListings()
-    public
-    isOwner
-  {
-    // We get stripped hex value from IPFS hash using getBytes32FromIpfsHash()
-    // in contract-service.js
-
-    // TODO
-    // Micro-Product 1 - Hash: xxx
-    // create(
-    //  0xxxx,
-    //  1.500 ether, 1
-    //);
-
-    // Micro-Product 2 - Hash: xxx
-    // create(
-    //  0xxxx,
-    //  0.800 ether, 15
-    // );
   }
 
   /// @dev listingsLength(): Return number of listings
@@ -84,7 +59,7 @@ contract ListingsRegistry {
       return listings.length;
   }
 
-  /// @dev getListing(): Return listing info for given listing
+  /// @dev getListing(): Return listing info for a given listing
   /// @param _index the index of the listing we want info about
   function getListing(uint _index)
     public
@@ -107,7 +82,7 @@ contract ListingsRegistry {
 
   /// @dev create(): Create a new listing
   /// @param _ipfsHash Hash of data on ipfsHash
-  /// @param _price Price of unit. Currently ETH, will change to 0T
+  /// @param _price Price of unit in wei
   /// @param _unitsAvailable Number of units availabe for sale at start
   ///
   /// Sample Remix invocation:
@@ -121,8 +96,9 @@ contract ListingsRegistry {
     returns (uint)
   {
     listings.push(new Listing(msg.sender, _ipfsHash, _price, _unitsAvailable));
-    NewListing(listings.length-1);
+    emit NewListing(listings.length-1);
     return listings.length;
   }
+
 
 }

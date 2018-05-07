@@ -1,17 +1,22 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.21;
 
 /// @title Listing
-/// @dev An indiviual O2O Listing representing an offer for booking/purchase
+/// @dev An indiviual O2OProtocol Listing representing an offer for booking/purchase
 
 import "./Purchase.sol";
+import "./PurchaseLibrary.sol";
+
 
 contract Listing {
+
+  uint public DEFAULT_EXPIRATION = 60 days;
 
   /*
    * Events
    */
 
   event ListingPurchased(Purchase _purchaseContract);
+  event ListingChange();
 
     /*
     * Storage
@@ -25,10 +30,12 @@ contract Listing {
     bytes32 public ipfsHash;
     uint public price;
     uint public unitsAvailable;
+    uint public created;
+    uint public expiration;
     Purchase[] public purchases;
 
 
-    function Listing (
+    constructor (
       address _owner,
       bytes32 _ipfsHash,
       uint _price,
@@ -41,6 +48,8 @@ contract Listing {
       ipfsHash = _ipfsHash;
       price = _price;
       unitsAvailable = _unitsAvailable;
+      created = now;
+      expiration = created + DEFAULT_EXPIRATION;
     }
 
   /*
@@ -48,7 +57,7 @@ contract Listing {
     */
 
   modifier isSeller() {
-    require (msg.sender == owner);
+    require(msg.sender == owner);
     _;
   }
 
@@ -56,6 +65,13 @@ contract Listing {
     * Public functions
     */
 
+  function data()
+    public
+    view
+    returns (address _owner, bytes32 _ipfsHash, uint _price, uint _unitsAvailable, uint _created, uint _expiration)
+  {
+    return (owner, ipfsHash, price, unitsAvailable, created, expiration);
+  }
 
   /// @dev buyListing(): Buy a listing
   /// @param _unitsToBuy Number of units to buy
@@ -64,10 +80,13 @@ contract Listing {
     payable
   {
     // Ensure that this is not trying to purchase more than is available.
-    require (_unitsToBuy <= unitsAvailable);
+    require(_unitsToBuy <= unitsAvailable);
+
+    // Ensure that we are not past the expiration
+    require(now < expiration);
 
     // Create purchase contract
-    Purchase purchaseContract = new Purchase(this, msg.sender);
+    Purchase purchaseContract = PurchaseLibrary.newPurchase(this, msg.sender);
 
     // Count units as sold
     unitsAvailable -= _unitsToBuy;
@@ -77,7 +96,8 @@ contract Listing {
     //TODO: How to call function *AND* transfer value??
     purchaseContract.pay.value(msg.value)();
 
-    ListingPurchased(purchaseContract);
+    emit ListingPurchased(purchaseContract);
+    emit ListingChange();
   }
 
   /// @dev close(): Allows a seller to close the listing from further purchases
@@ -86,9 +106,10 @@ contract Listing {
     isSeller
   {
     unitsAvailable = 0;
+    emit ListingChange();
   }
 
-  /// @dev purchasesLength(): Return number of listings
+  /// @dev purchasesLength(): Return number of purchases for a given listing
   function purchasesLength()
     public
     constant
@@ -97,7 +118,7 @@ contract Listing {
       return purchases.length;
   }
 
-  /// @dev getPurchase(): Return listing info for given listing
+  /// @dev getPurchase(): Return purchase info for a given listing
   /// @param _index the index of the listing we want info about
   function getPurchase(uint _index)
     public

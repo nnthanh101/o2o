@@ -1,5 +1,7 @@
 import userSchema from "./schemas/user.json"
-import Ajv from "ajv"
+
+var Ajv = require("ajv")
+var ajv = new Ajv()
 
 class O2OService {
   constructor({ contractService, ipfsService }) {
@@ -29,21 +31,28 @@ class O2OService {
     const units = 1 // TODO: Allow users to set number of units in form
     let transactionReceipt
     try {
-      transactionReceipt = await this.contractService.submitListing(ipfsHash, formListing.formData.price, units)
+      transactionReceipt = await this.contractService.submitListing(
+        ipfsHash,
+        formListing.formData.price,
+        units
+      )
     } catch (error) {
       console.error(error)
       throw new Error(`ETH Failure: ${error}`)
     }
 
     // Success!
-    console.log(`Submitted to ETH blockchain with transactionReceipt.tx: ${transactionReceipt.tx}`)
+    console.log(
+      `Submitted to ETH blockchain with transactionReceipt.tx: ${
+        transactionReceipt.tx
+      }`
+    )
     return transactionReceipt
   }
 
   setUser(data) {
     return new Promise((resolve, reject) => {
-      const ajv = new Ajv()
-      const validate = ajv.compile(userSchema)
+      var validate = ajv.compile(userSchema)
       if (!validate(data)) {
         reject("invalid user data")
       } else {
@@ -59,7 +68,11 @@ class O2OService {
               .setUser(ipfsHash)
               .then(transactionReceipt => {
                 // Success!
-                console.log(`Submitted to ETH blockchain with transactionReceipt.tx: ${transactionReceipt.tx}`)
+                console.log(
+                  `Submitted to ETH blockchain with transactionReceipt.tx: ${
+                    transactionReceipt.tx
+                  }`
+                )
                 resolve(transactionReceipt.tx)
               })
               .catch(error => {

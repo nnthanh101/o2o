@@ -1,17 +1,44 @@
 // For now, we are just wrapping the methods that are already in
 // contractService and ipfsService.
+import ResourceBase from"../ResourceBase"
 
-export default class Listings {
+class Listings extends ResourceBase{
   constructor({ contractService, ipfsService }) {
-    this.contractService = contractService
-    this.ipfsService = ipfsService
+    super({ contractService, ipfsService })
+    this.contractDefinition = this.contractService.listingContract
   }
 
-  allIds = async () => {
+  async allIds() {
     return await this.contractService.getAllListingIds()
   }
 
-  getByIndex = async listingIndex => {
+  async get(address) {
+    const contractData = await this.contractFn(address, "data")
+    let ipfsHash = this.contractService.getIpfsHashFromBytes32(contractData[1])
+    const ipfsData = await this.ipfsService.getFile(ipfsHash)
+
+    let listing = {
+      address: address,
+      ipfsHash: ipfsHash,
+      sellerAddress: contractData[0],
+      priceWei: contractData[2].toString(),
+      price: this.contractService.web3.utils.fromWei(contractData[2], "ether"),
+      unitsAvailable: contractData[3],
+      created: contractData[4],
+      expiration: contractData[5],
+
+      name: ipfsData.data.name,
+      category: ipfsData.data.category,
+      description: ipfsData.data.description,
+      location: ipfsData.data.location,
+      pictures: ipfsData.data.pictures
+    }
+
+    return listing
+  }
+
+  // This method is DEPRCIATED
+  async getByIndex(listingIndex) {
     const contractData = await this.contractService.getListing(listingIndex)
     const ipfsData = await this.ipfsService.getFile(contractData.ipfsHash)
     // ipfsService should have already checked the contents match the hash,
@@ -29,8 +56,8 @@ export default class Listings {
       index: contractData.index,
       ipfsHash: contractData.ipfsHash,
       sellerAddress: contractData.lister,
-      price: contractData.price,
-      unitsAvailable: contractData.unitsAvailable
+      price: Number(contractData.price),
+      unitsAvailable: Number(contractData.unitsAvailable)
     }
 
     // TODO: Validation
@@ -38,11 +65,11 @@ export default class Listings {
     return listing
   }
 
-  create = async (data, schemaType) => {
-    if (typeof data.price === "undefined") {
+  async create(data, schemaType) {
+    if (data.price == undefined) {
       throw "You must include a price"
     }
-    if (typeof data.name === "undefined") {
+    if (data.name == undefined) {
       throw "You must include a name"
     }
 
@@ -50,8 +77,8 @@ export default class Listings {
 
     // TODO: Why can't we take schematype from the formListing object?
     const jsonBlob = {
-      schema: `http://localhost:3000/schemas/${schemaType}.json`,
-      data: formListing.formData
+      'schema': `http://localhost:3000/schemas/${schemaType}.json`,
+      'data': formListing.formData,
     }
 
     let ipfsHash
@@ -69,7 +96,10 @@ export default class Listings {
     const units = 1 // TODO: Allow users to set number of units in form
     let transactionReceipt
     try {
-      transactionReceipt = await this.contractService.submitListing(ipfsHash, formListing.formData.price, units)
+      transactionReceipt = await this.contractService.submitListing(
+        ipfsHash,
+        formListing.formData.price,
+        units)
     } catch (error) {
       console.error(error)
       throw new Error(`ETH Failure: ${error}`)
@@ -80,7 +110,23 @@ export default class Listings {
     return transactionReceipt
   }
 
-  buy = async (listingAddress, unitsToBuy, ethToPay) => {
-    return await this.contractService.buyListing(listingAddress, unitsToBuy, ethToPay)
+  async buy(address, unitsToBuy, ethToPay) {
+    // TODO: ethToPay should really be replaced by something that takes Wei.
+    const value = this.contractService.web3.utils.toWei(String(ethToPay), "ether")
+    return await this.contractFn(address, "buyListing", [unitsToBuy], {value:value, gas: 650000})
+  }
+
+  async close(address) {
+    return await this.contractFn(address, "close")
+  }
+
+  async purchasesLength(address) {
+    return Number(await this.contractFn(address, "purchasesLength"))
+  }
+
+  async purchaseAddressByIndex(address, index) {
+    return await this.contractFn(address, "getPurchase", [index])
   }
 }
+
+module.exports = Listings

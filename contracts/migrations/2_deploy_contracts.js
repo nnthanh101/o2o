@@ -1,7 +1,8 @@
 // Load contracts
-const UserRegistry = artifacts.require("UserRegistry.sol");
-const Listing = artifacts.require("Listing.sol")
-const ListingsRegistry = artifacts.require("ListingsRegistry.sol");
+var ListingsRegistry = artifacts.require("./ListingsRegistry.sol");
+var Listing = artifacts.require("./Listing.sol");
+var UserRegistry = artifacts.require("./UserRegistry.sol");
+var PurchaseLibrary = artifacts.require("./PurchaseLibrary.sol");
 
 // Post deploy
 const _ = console.log
@@ -9,11 +10,13 @@ const {pushABIToIpfs} = require("./pushABIToIpfs")
 
 module.exports = async (deployer) => {
   try{
-    const list = []
-    list.push(deployer.deploy(UserRegistry));
-    list.push(deployer.deploy(Listing));
-    list.push(deployer.deploy(ListingsRegistry));
+    deployer.deploy(PurchaseLibrary);
+    deployer.link(PurchaseLibrary, ListingsRegistry)
+    deployer.link(PurchaseLibrary, Listing)
+    deployer.deploy(ListingsRegistry);
+    deployer.deploy(UserRegistry);    
 
+    const list = []
     await Promise.all(list)
     const ipfsHashes = await pushABIToIpfs()
 
@@ -23,4 +26,5 @@ module.exports = async (deployer) => {
     _("[INFO][Truffle deploy][ERR]", err.message, err.stack)
     throw new Error()
   }
+  
 };

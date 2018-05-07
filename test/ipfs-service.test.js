@@ -23,6 +23,38 @@ describe("IpfsService", () => {
     })
   })
 
+  describe("constructor", () => {
+    it("should default to origin", () => {
+      var service = new IpfsService()
+      expect(service.gateway).to.equal("https://gateway.o2oprotocol.io")
+      expect(service.api).to.equal("https://gateway.o2oprotocol.io")
+    })
+
+    it("should use specified port if not protocol default", () => {
+      var service = new IpfsService({ ipfsGatewayPort: "8080" })
+      expect(service.gateway).to.equal(
+        "https://gateway.o2oprotocol.io:8080"
+      )
+
+      service = new IpfsService({
+        ipfsGatewayProtocol: "http",
+        ipfsGatewayPort: "8080"
+      })
+      expect(service.gateway).to.equal("http://gateway.o2oprotocol.io:8080")
+
+      service = new IpfsService({
+        ipfsGatewayProtocol: "http",
+        ipfsApiPort: "8080"
+      })
+      expect(service.api).to.equal("http://gateway.o2oprotocol.io:8080")
+    })
+
+    it("should use default protocol port if given port is empty", () => {
+      var service = new IpfsService({ ipfsGatewayPort: "" })
+      expect(service.gateway).to.equal("https://gateway.o2oprotocol.io")
+    })
+  })
+
   describe("submitFile", () => {
     listings.forEach(({ data, ipfsHash }) => {
       it("should successfully submit file", async () => {
@@ -41,12 +73,14 @@ describe("IpfsService", () => {
   })
 
   describe("getFile", () => {
-    // Skipped because of https://github.com/OriginProtocol/platform/issues/27
+    // Skipped because of https://github.com/o2oprotocol/o2oprotocol/issues/27
     xit("should reject when listing cannot be found", done => {
-      ipfsService.getFile("QmWHyrPWQnsz1wxHR219ooJDYTvxJPyZuDUPSDpdsAovN5").then(done.fail, error => {
-        expect(error).to.match(/Got ipfs cat error/)
-        done()
-      })
+      ipfsService
+        .getFile("QmWHyrPWQnsz1wxHR219ooJDYTvxJPyZuDUPSDpdsAovN5")
+        .then(done.fail, error => {
+          expect(error).to.match(/Got ipfs cat error/)
+          done()
+        })
     })
   })
 
