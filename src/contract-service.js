@@ -1,8 +1,11 @@
 //TODO: Replace with async load ABI from ipfs
+import ClaimHolderRegisteredContract from "./../contracts/build/contracts/ClaimHolderRegistered.json"
+import ClaimHolderPresignedContract from "./../contracts/build/contracts/ClaimHolderPresigned.json"
 import ListingsRegistryContract from "./../contracts/build/contracts/ListingsRegistry.json"
 import ListingContract from "./../contracts/build/contracts/Listing.json"
 import PurchaseContract from "./../contracts/build/contracts/Purchase.json"
 import UserRegistryContract from "./../contracts/build/contracts/UserRegistry.json"
+import O2OIdentityContract from "./../contracts/build/contracts/O2OIdentity.json"
 import bs58 from "bs58"
 import Web3 from "web3"
 
@@ -20,7 +23,10 @@ class ContractService {
       listingsRegistryContract: ListingsRegistryContract,
       listingContract: ListingContract,
       purchaseContract: PurchaseContract,
-      userRegistryContract: UserRegistryContract
+      userRegistryContract: UserRegistryContract,
+      claimHolderRegisteredContract: ClaimHolderRegisteredContract,
+      claimHolderPresignedContract: ClaimHolderPresignedContract,
+      o2oIdentityContract: O2OIdentityContract
     }
     for (let name in contracts) {
       this[name] = contracts[name]
@@ -105,13 +111,28 @@ class ContractService {
     }
   }
 
-  async deployed(contract) {
+  async deployed(contract, addrs) {
     const net = await this.web3.eth.net.getId()
-    const addrs = contract.networks[net]
-    return new this.web3.eth.Contract(
-      contract.abi,
-      addrs ? addrs.address : null
-    )
+    let storedAddress = contract.networks[net] && contract.networks[net].address
+    addrs = addrs || storedAddress || null
+    return new this.web3.eth.Contract(contract.abi, addrs)
+  }
+
+  async deploy(contract, args, options) {
+    let deployed = await this.deployed(contract)
+    let transaction = await new Promise((resolve, reject) => {
+      deployed
+        .deploy({
+          data: contract.bytecode,
+          arguments: args
+        })
+        .send(options)
+        .on("receipt", receipt => {
+          resolve(receipt)
+        })
+        .on("error", err => reject(err))
+    })
+    return await this.waitTransactionFinished(transaction.transactionHash)
   }
 
   async getAllListingIds() {

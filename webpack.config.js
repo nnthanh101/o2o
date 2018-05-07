@@ -3,7 +3,7 @@ var nodeExternals = require('webpack-node-externals');
 var serverConfig = {
   entry: ["babel-polyfill", './src/index.js'],
   output: {
-    filename: './dist/index.js',
+    filename: './index.js',
     libraryTarget: 'commonjs2'
   },
   mode: 'development',
@@ -37,7 +37,7 @@ var serverConfig = {
 var clientConfig = {
   entry: ["babel-polyfill", './src/index.js'],
   output: {
-    filename: './dist/o2oprotocol.js',
+    filename: './o2oprotocol.js',
     libraryTarget: 'window'
   },
   mode: 'development',

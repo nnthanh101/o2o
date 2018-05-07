@@ -220,12 +220,20 @@ git clone https://github.com/o2oprotocol/o2oprotocol o2o-platform && cd o2o-plat
  - Delete Listings
  - Validate Listings
  
+>  Create listing (seller)
+- Buy listing (buyer) - presumed to be the equivalent of sending money
+- Fulfill order (seller)
+- Receive order (buyer)
+- Withdraw funds (seller)
+- Provide feedback (buyer)
+
 > Buyers:
  
  - Browse Listing
  - Create Bookings
  - Update Bookings
  - Cancel Bookings
+
 
  Note: to show the gas costs of each transaction during a test, set the enviroment variable GAS_TRACKING before launching truffle develop. For example, using bash: GAS_TRACKING=1 npx truffle develop
 

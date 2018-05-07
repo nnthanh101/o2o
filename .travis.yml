@@ -1,27 +1,3 @@
 language: node_js
 node_js:
-  - "8.10.0"
-cache:
-  directories:
-  - node_modules
-before_script:
-  - node --version
-script:
-  - npm run chain:private
-  - sleep 5
-  - npm run migrate:development
-  - npm run test
-  - npm run test:services
-deploy:
- - provider: script
-   skip_cleanup: true
-   script: npm run deploy:development
-   email: o2oprotocol101@gmail.com
-   on:
-     all_branches: true
-     repo: o2oprotocol/o2oprotocol
-env:
- - NODE_ENV=development
-notifications:
-  email: true
-after_failure: cat /home/travis/build/o2oprotocol/o2oprotocol/npm-debug.log
+  - "lts/*"

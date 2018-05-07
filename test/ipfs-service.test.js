@@ -24,7 +24,7 @@ describe("IpfsService", () => {
   })
 
   describe("constructor", () => {
-    it("should default to origin", () => {
+    it("should default to o2oprotocol", () => {
       var service = new IpfsService()
       expect(service.gateway).to.equal("https://gateway.o2oprotocol.io")
       expect(service.api).to.equal("https://gateway.o2oprotocol.io")
