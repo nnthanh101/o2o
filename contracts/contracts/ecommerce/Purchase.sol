@@ -91,9 +91,6 @@ contract Purchase {
   {
     if (address(this).balance >= listingContract.price()) {
       // Buyer (or their proxy) has paid enough to cover purchase
-      // Mark item as no longer available for sale in Listing
-      // TODO: presumably we call function on Listing(), proving that we have
-      // the funds to cover purchase.
       internalStage = Stages.SHIPPING_PENDING;
       emit PurchaseChange(internalStage);
     }

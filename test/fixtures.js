@@ -31,10 +31,10 @@ export const listings = [
     },
     ipfsHash: testData.IPFS_HASH,
   }
-export const ipfsConfig = {
-  ipfsDomain: "localhost",
-  ipfsApiPort: "5001",
-  ipfsGatewayPort: "8080",
-  ipfsProtocol: "http"
-}
 ]
+export const ipfsConfig = {
+  ipfsDomain: "127.0.0.1",
+  ipfsApiPort: "5002",
+  ipfsGatewayPort: "8080",
+  ipfsGatewayProtocol: "http"
+}

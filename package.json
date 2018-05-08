@@ -8,7 +8,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "demo:init": "cd scripts/init-data && npm install && node index.js",
-    "demo:reset": "cd scripts/init-data && npm install && node reset.js"
+    "demo:reset": "cd scripts/init-data && npm install && node reset.js",
     "test": "node scripts/test.js",
     "test:contracts": "node scripts/test-contracts.js",
     "test:js": "mocha --compilers js:babel-core/register --require babel-polyfill",
@@ -57,12 +57,13 @@
     "util.promisify": "^1.0.0",
     "web3": "^1.0.0-beta.34"
   },
-  "devDependencies": {
   "lint-staged": {
     "*.js": [
       "prettier --write --no-semi --print-width 120",
       "git add"
     ]
+  },
+  "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",

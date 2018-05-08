@@ -1,28 +1,49 @@
-const fs = require("fs")
-const {pushFilesToIpfs} = require("../ipfs/api/pushFilesOnIpfs")
+const fs = require("fs");
+const IPFS = require('ipfs-api');
+const path = require("path");
+const _ = console.log
 
-const projectPath = `${__dirname}/..`
-const CONTRACT_ABI_DIR = "build/contracts"
-const abiPath = `${projectPath}/${CONTRACT_ABI_DIR}`;
+/**
+ * Push files to IPFS
+ * @param ipfsConifg
+ * @param files
+ * @return {Promise}
+ */
+const pushFilesToIpfs = (ipfsConifg, files, options = {}) => {
+  const ipfs = new IPFS(ipfsConifg)
+  
+  return new Promise((resolve, reject) => {
+    ipfs.add(files, options, (err, res) => {
+      if(err || !res) {
+        _("[ipfs.add][ERR]", err.message, err.stack)
+        return reject()
+      }
 
-// Ipfs client conifg
-const host = process.env.IPFS_HOST || "ipfs.infura.io"
-const port = process.env.IPFS_PORT || 5001
-const protocol = process.env.IPFS_PROTOCOL || "https"
-// const host = process.env.IPFS_HOST || "localhost"
-// const port = process.env.IPFS_PORT || 5001
-// const protocol = process.env.IPFS_PROTOCOL || "http"
-const ipfsConfig = {host, port, protocol}
-
-// ABI files
-const abiFilenames = fs.readdirSync(abiPath)
-// This is not GOOD PRACTICE from INFURA, when they require data as buffer
-const files = abiFilenames.map(fileName => `${abiPath}/${fileName}`)
+      return resolve(res)
+    })
+  })
+}
 
 const pushABIToIpfs = () => {
-  return pushFilesToIpfs(ipfsConfig, files)
+  // Ipfs client conifg
+  // const host = process.env.IPFS_HOST || "ipfs.infura.io"
+  // const port = process.env.IPFS_PORT || 5001
+  // const protocol = process.env.IPFS_PROTOCOL || "https"
+  // const ipfsConfig = {host, port, protocol}
+
+  // const abiPath = path.join(__dirname, "..", "build", "contracts");
+  // const abiFilenames = fs.readdirSync(abiPath)
+  // const files = abiFilenames.map(fileName => path.join(abiPath, fileName))
+
+  // return pushFilesToIpfs(ipfsConfig, files)
+
+  const host = "localhost"
+  const port = 5002
+  const protocol = "http"
+  const ipfsConfig = {host, port, protocol}
+
+  const abiPath = path.join(__dirname, "..", "build", "contracts");
+  return pushFilesToIpfs(ipfsConfig, [abiPath], { recursive: true, wrapWithDirectory: true })
 }
 
-module.exports = {
-  pushABIToIpfs,
-}
+module.exports =  pushABIToIpfs

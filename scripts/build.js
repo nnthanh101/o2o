@@ -15,8 +15,8 @@ const start = async () => {
 
   if (shouldWatch) {
     await startGanache()
-    await deployContracts()
     await startIpfs()
+    await deployContracts()
 
     // watch contracts
     watch('./contracts/contracts', { recursive: true }, (evt, name) => {
