@@ -7,8 +7,6 @@
   },
   "main": "./dist/index.js",
   "scripts": {
-    "demo:init": "cd scripts/init-data && npm install && node index.js",
-    "demo:reset": "cd scripts/init-data && npm install && node reset.js",
     "test": "node scripts/test.js",
     "test:contracts": "node scripts/test-contracts.js",
     "test:js": "mocha --compilers js:babel-core/register --require babel-polyfill",

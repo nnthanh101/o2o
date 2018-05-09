@@ -42,3 +42,6 @@ testem.log
 
 # Yarn
 yarn.lock
+
+# Temp folder
+/tmp
