@@ -17,7 +17,8 @@ const startIpfs = (opts = {}) =>
         return reject(err)
       }
       console.log('Started IPFS')
-      await populateIpfs()
+      //@TODO Populate demo listings from s3
+      // await populateIpfs()
 
       resolve()
     })
