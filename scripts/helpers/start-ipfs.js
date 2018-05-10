@@ -1,7 +1,7 @@
 var ipfsAPI = require('ipfs-api')
 var HttpIPFS = require('ipfs/src/http')
-
-const fixturesDir = __dirname + '/../../test/fixtures'
+const populateIpfs = require("./populateIpfs")
+const fixtureType = process.env.FIXTURE_TYPE || "ecommerce"
 
 const startIpfs = (opts = {}) =>
   new Promise((resolve, reject) => {
@@ -18,22 +18,23 @@ const startIpfs = (opts = {}) =>
       }
       console.log('Started IPFS')
       //@TODO Populate demo listings from s3
-      // await populateIpfs()
+      const ipfs = ipfsAPI('localhost', '5002', { protocol: 'http' })
+      await populateIpfs(ipfs, fixtureType)
 
       resolve()
     })
   })
 
-const populateIpfs = () =>
-  new Promise((resolve, reject) => {
-    var ipfs = ipfsAPI('localhost', '5002', { protocol: 'http' })
-    console.log('Populate IPFS...')
-    ipfs.util.addFromFs(fixturesDir, { recursive: true }, (err, result) => {
-      if (err) {
-        return reject(err)
-      }
-      resolve(result)
-    })
-  })
+// const populateIpfs = () =>
+//   new Promise((resolve, reject) => {
+//     var ipfs = ipfsAPI('localhost', '5002', { protocol: 'http' })
+//     console.log('Populate IPFS...')
+//     ipfs.util.addFromFs(fixturesDir, { recursive: true }, (err, result) => {
+//       if (err) {
+//         return reject(err)
+//       }
+//       resolve(result)
+//     })
+//   })
 
 module.exports = startIpfs

@@ -5,7 +5,6 @@ const fileType = require("file-type");
 const axios = require("axios");
 const os = require("os");
 const md5 = require("md5");
-const samples = require("./samples");
 const ipfsAPI = require("ipfs-api");
 const bs58 = require("bs58");
 const shelljs = require("shelljs")
@@ -48,7 +47,7 @@ const convertToBrowserBase64 = imgPath => {
   }
 };
 
-const fetchFile = axios.create({ timeout: 3000 });
+const fetchFile = axios.create({ timeout: 10000 });
 
 const storeDownloadFile = async (fileUrl, filePath, fetchOptions = {}) => {
   // Default fitePath in sampleDir
@@ -71,9 +70,7 @@ const storeDownloadFile = async (fileUrl, filePath, fetchOptions = {}) => {
   });
 };
 
-const createListingJson = async (sampleTestCases, sampleDir) => {
-  const ipfs = ipfsAPI("localhost", "5001", { protocol: "http" });
-
+const createListingJson = async (ipfs, sampleTestCases, sampleDir) => {
   const waitList = sampleTestCases.map(async testCase => {
     const { pictures: urls } = testCase;
 
@@ -102,7 +99,7 @@ const createListingJson = async (sampleTestCases, sampleDir) => {
     });
 
     const hashByte32 = getBytes32FromIpfsHash(result.hash);
-    console.log(hashByte32);
+    console.log(`${path.basename(fileName).substring(0, 10)}... hashByte32:`, hashByte32);
 
     return {
       ipfsHash: hashByte32,
@@ -118,17 +115,28 @@ const createListingJson = async (sampleTestCases, sampleDir) => {
 };
 
 
-const populateToIpfs = async () => {
+const populateToIpfs = async (ipfs, fixtureType) => {
   console.log("Populate Sample Data...")
+  
+  const filePathArr = ["..", "..", "test", "fixtures", fixtureType, "samples.json"]
+  const sampleFile  = path.join(__dirname, ...filePathArr)
+
+  console.log("sampleFile", sampleFile)
+  if(!fs.existsSync(sampleFile)) return null
+
+  const samples = require(sampleFile)
   const sampleDir = path.join(__dirname, "..", "..", "..", "build", "sample-data");
   shelljs.mkdir("-p", sampleDir)
-  const listingPath = await createListingJson(samples, sampleDir);
+  
+  const listingPath = await createListingJson(ipfs, samples, sampleDir);
+  
   console.log("listingPath", listingPath)
   console.log("Populated")
 }
 
 // ;(async () => {
-//   const listingPath = await populateToIpfs()
+//   const ipfs = ipfsAPI("localhost", "5001", { protocol: "http" });
+//   const listingPath = await populateToIpfs(ipfs, "ecommerce")
 // })()
 
 module.exports = populateToIpfs
