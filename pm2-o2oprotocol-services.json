@@ -1,0 +1,9 @@
+{
+  "apps":[
+    {
+      "name":"O2OProtocol_Services",
+      "args" : "serve",
+      "script":"scripts/build.js"
+    }
+  ]
+}

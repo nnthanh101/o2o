@@ -8,7 +8,7 @@ delete config.output
 Object.assign(config, {
   devServer: {
     stats: "errors-only",
-    host: "localhost",
+    host: "0.0.0.0",
     port: 8081,
     overlay: {
       errors: true,
