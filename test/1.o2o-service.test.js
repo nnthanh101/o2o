@@ -6,7 +6,7 @@ import Web3 from "web3"
 
 const methodNames = ["submitListing"]
 
-describe("O2OService", () => {
+describe("1.O2OService", () => {
   let contractService
   let ipfsService
   let o2oService

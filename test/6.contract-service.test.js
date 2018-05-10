@@ -10,7 +10,7 @@ const methodNames = [
 ]
 const testData = require("../contracts/test/TestData.json");
 
-describe("ContractService", function() {
+describe("6.ContractService", function() {
   this.timeout(5000) // default is 2000
 
   let contractService

@@ -5,7 +5,7 @@ import ContractService from "../src/contract-service.js"
 import IpfsService from "../src/ipfs-service.js"
 import Web3 from "web3"
 
-describe("Purchase Resource", function() {
+describe("5.Purchase Resource", function() {
   this.timeout(5000) // default is 2000
 
   var listings

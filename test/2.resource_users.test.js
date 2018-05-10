@@ -34,7 +34,7 @@ const invalidAttestation = new AttestationObject({
     "0x4e8feba65cbd88fc246013da8dfb478e880518594d86349f54af9c8d5e2eac2b223222c4c6b93f18bd54fc88f4342f1b02a8ea764a411fc02823a3420574375c1c"
 })
 
-describe("User Resource", function() {
+describe("2.User Resource", function() {
   this.timeout(10000) // default is 2000
   let users
   let phoneAttestation

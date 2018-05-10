@@ -8,9 +8,9 @@ const testFormat = require('./helpers/test-format')
 const start = async () => {
   try {
     await startGanache()
+    await startIpfs()
     await deployContracts()
     await testContracts()
-    await startIpfs()
     await testJavascript()
     await testFormat()
     console.log('Tests passed. :)')

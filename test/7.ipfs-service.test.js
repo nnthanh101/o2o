@@ -10,7 +10,7 @@ const clearCache = ipfsService => {
 const ipfsEnv = "local"
 const methodNames = ["submitFile", "getFile", "gatewayUrlForHash"]
 
-describe("IpfsService", () => {
+describe("7.IpfsService", () => {
   let ipfsService
 
   beforeEach(() => {

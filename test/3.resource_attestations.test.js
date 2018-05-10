@@ -59,7 +59,7 @@ let setupWithServer = ({
   return new Attestations({ fetch, serverUrl, contractService })
 }
 
-describe("Attestation Resource", function() {
+describe("3.Attestation Resource", function() {
   this.timeout(5000) // default is 2000
 
   describe("getIdentityAddress", () => {
