@@ -1,7 +1,8 @@
 import { expect } from "chai"
 import ContractService from "../src/contract-service"
 import { ipfsHashes } from "./fixtures"
-import Web3 from "web3"
+// import Web3 from "web3"
+import { web3 } from "./fixtures"
 
 const methodNames = [
   "submitListing",
@@ -16,8 +17,8 @@ describe("6.ContractService", function() {
   let contractService
 
   before(async () => {
-    let provider = new Web3.providers.HttpProvider("http://localhost:8545")
-    let web3 = new Web3(provider)
+    // let provider = new Web3.providers.HttpProvider("http://localhost:8545")
+    // let web3 = new Web3(provider)
     contractService = new ContractService({ web3 })
 
     // Ensure that there is at least 1 sample listing

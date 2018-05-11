@@ -7,6 +7,7 @@ import ContractService from "../src/contract-service.js"
 import IpfsService from "../src/ipfs-service.js"
 import { expect } from "chai"
 import Web3 from "web3"
+import { web3, ipfsConfig } from "./fixtures"
 
 const issuerPrivatekey =
   "0000000000000000000000000000000000000000000000000000000000000001"
@@ -42,19 +43,20 @@ describe("2.User Resource", function() {
   let facebookAttestation
 
   beforeEach(async () => {
-    let provider = new Web3.providers.HttpProvider("http://localhost:8545")
-    let web3 = new Web3(provider)
+    // let provider = new Web3.providers.HttpProvider("http://localhost:8545")
+    // let web3 = new Web3(provider)
     let accounts = await web3.eth.getAccounts()
     let contractService = new ContractService({ web3 })
     let o2oIdentity = await contractService.deployed(
       contractService.o2oIdentityContract
     )
-    let ipfsService = new IpfsService({
-      ipfsDomain: "127.0.0.1",
-      ipfsApiPort: "5002",
-      ipfsGatewayPort: "8080",
-      ipfsGatewayProtocol: "http"
-    })
+    // ipfsService = new IpfsService({
+    //   ipfsDomain: "127.0.0.1",
+    //   ipfsApiPort: "5002",
+    //   ipfsGatewayPort: "8080",
+    //   ipfsGatewayProtocol: "http"
+    // })
+    let ipfsService = new IpfsService(ipfsConfig)
     let attestations = new Attestations({ contractService })
     users = new Users({ contractService, ipfsService })
 

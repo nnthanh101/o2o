@@ -6,6 +6,7 @@ import ContractService from "../src/contract-service"
 import { expect } from "chai"
 import Web3 from "web3"
 import fetchMock from "fetch-mock"
+import { web3 } from "./fixtures"
 
 const sampleWallet = "0x627306090abaB3A6e1400e9345bC60c78a8BEf57"
 const sampleAttestation = {
@@ -28,8 +29,8 @@ let expectAttestation = result => {
 }
 
 let setup = () => {
-  let provider = new Web3.providers.HttpProvider("http://localhost:8545")
-  let web3 = new Web3(provider)
+  // let provider = new Web3.providers.HttpProvider("http://localhost:8545")
+  // let web3 = new Web3(provider)
   let contractService = new ContractService({ web3 })
   return new Attestations({ contractService })
 }
@@ -40,8 +41,8 @@ let setupWithServer = ({
   expectedParams,
   responseStub
 }) => {
-  let provider = new Web3.providers.HttpProvider("http://localhost:8545")
-  let web3 = new Web3(provider)
+  // let provider = new Web3.providers.HttpProvider("http://localhost:8545")
+  // let web3 = new Web3(provider)
   let contractService = new ContractService({ web3 })
   let serverUrl = "http://fake.url/api/attestations" // fake url
   let fetch = fetchMock.sandbox().mock(

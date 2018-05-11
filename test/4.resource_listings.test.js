@@ -2,7 +2,8 @@ import { expect } from "chai"
 import Listings from "../src/resources/listings.js"
 import ContractService from "../src/contract-service.js"
 import IpfsService from "../src/ipfs-service.js"
-import Web3 from "web3"
+// import Web3 from "web3"
+import { web3, ipfsConfig } from "./fixtures"
 
 describe("4.Listing Resource", function() {
   this.timeout(5000) // default is 2000
@@ -13,15 +14,16 @@ describe("4.Listing Resource", function() {
   var testListingIds
 
   before(async () => {
-    let provider = new Web3.providers.HttpProvider("http://localhost:8545")
-    let web3 = new Web3(provider)
+    // let provider = new Web3.providers.HttpProvider("http://localhost:8545")
+    // let web3 = new Web3(provider)
     contractService = new ContractService({ web3 })
-    ipfsService = new IpfsService({
-      ipfsDomain: "127.0.0.1",
-      ipfsApiPort: "5002",
-      ipfsGatewayPort: "8080",
-      ipfsGatewayProtocol: "http"
-    })
+    // ipfsService = new IpfsService({
+    //   ipfsDomain: "127.0.0.1",
+    //   ipfsApiPort: "5002",
+    //   ipfsGatewayPort: "8080",
+    //   ipfsGatewayProtocol: "http"
+    // })
+    ipfsService = new IpfsService(ipfsConfig)
     listings = new Listings({ contractService, ipfsService })
     testListingIds = await contractService.getAllListingIds()
 

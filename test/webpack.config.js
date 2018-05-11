@@ -3,6 +3,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const [, config] = require("../webpack.config")
 const { EnvironmentPlugin, NamedModulesPlugin } = require("webpack")
 const Dotenv = require('dotenv-webpack')
+const request = require("sync-request")
+
+// Inject Server Public IP
+const res = request("GET", "http://ipinfo.io/ip");
+const publicIp = res.getBody("utf8").trim();
+process.env.PUBLIC_IP = publicIp;
 
 delete config.output
 
@@ -20,7 +26,9 @@ Object.assign(config, {
   entry: ["babel-polyfill", path.join(__dirname, "index.js")],
 
   plugins: [
-    new Dotenv(),
+    new Dotenv({
+      systemvars: true
+    }),
     new NamedModulesPlugin(),
     // new EnvironmentPlugin({
     //   IPFS_DOMAIN: "",

@@ -3,7 +3,8 @@ import Listings from "../src/resources/listings.js"
 import Purchase from "../src/resources/purchases.js"
 import ContractService from "../src/contract-service.js"
 import IpfsService from "../src/ipfs-service.js"
-import Web3 from "web3"
+// import Web3 from "web3"
+import { web3, ipfsConfig } from "./fixtures"
 
 describe("5.Purchase Resource", function() {
   this.timeout(5000) // default is 2000
@@ -18,15 +19,16 @@ describe("5.Purchase Resource", function() {
   var web3
 
   before(async () => {
-    let provider = new Web3.providers.HttpProvider("http://localhost:8545")
-    web3 = new Web3(provider)
+    // let provider = new Web3.providers.HttpProvider("http://localhost:8545")
+    // web3 = new Web3(provider)
     contractService = new ContractService({ web3 })
-    ipfsService = new IpfsService({
-      ipfsDomain: "127.0.0.1",
-      ipfsApiPort: "5002",
-      ipfsGatewayPort: "8080",
-      ipfsGatewayProtocol: "http"
-    })
+    // ipfsService = new IpfsService({
+    //   ipfsDomain: "127.0.0.1",
+    //   ipfsApiPort: "5002",
+    //   ipfsGatewayPort: "8080",
+    //   ipfsGatewayProtocol: "http"
+    // })
+    ipfsService = new IpfsService(ipfsConfig)
     listings = new Listings({ contractService, ipfsService })
     purchases = new Purchase({ contractService, ipfsService })
   })

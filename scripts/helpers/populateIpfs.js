@@ -122,7 +122,11 @@ const populateToIpfs = async (ipfs, fixtureType) => {
   const sampleFile  = path.join(__dirname, ...filePathArr)
 
   console.log("sampleFile", sampleFile)
-  if(!fs.existsSync(sampleFile)) return null
+  if(!fs.existsSync(sampleFile)) {
+    console.log("Sample file not exist: ", sampleFile)
+    console.log("Populate existed")
+    return null
+  }
 
   const samples = require(sampleFile)
   const sampleDir = path.join(__dirname, "..", "..", "..", "build", "sample-data");
