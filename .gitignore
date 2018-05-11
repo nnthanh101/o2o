@@ -45,3 +45,6 @@ yarn.lock
 
 # Temp folder
 /tmp
+
+# environment file
+.env

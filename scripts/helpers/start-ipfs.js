@@ -1,14 +1,21 @@
 var ipfsAPI = require('ipfs-api')
 var HttpIPFS = require('ipfs/src/http')
 const populateIpfs = require("./populateIpfs")
+const { getIpfsConfig } = require("../utils")
 const fixtureType = process.env.FIXTURE_TYPE || "ecommerce"
+const dotenv = require("dotenv");
 
-const startIpfs = (opts = {}) =>
-  new Promise((resolve, reject) => {
+// Load .env
+dotenv.config();
+
+const startIpfs = (opts = {}) => {
+  const cnf = getIpfsConfig()
+
+  return new Promise((resolve, reject) => {
     const httpAPI = new HttpIPFS(undefined, {
       Addresses: {
-        API: '/ip4/0.0.0.0/tcp/5002',
-        Gateway: '/ip4/0.0.0.0/tcp/8080'
+        API: `/ip4/0.0.0.0/tcp/${cnf.IPFS_API_PORT}`,
+        Gateway: `/ip4/0.0.0.0/tcp/${cnf.IPFS_GATEWAY_PORT}`
       }
     })
     console.log('Start IPFS')
@@ -17,13 +24,13 @@ const startIpfs = (opts = {}) =>
         return reject(err)
       }
       console.log('Started IPFS')
-      //@TODO Populate demo listings from s3
-      const ipfs = ipfsAPI('localhost', '5002', { protocol: 'http' })
+      const ipfs = ipfsAPI('localhost', cnf.IPFS_API_PORT, { protocol: 'http' })
       await populateIpfs(ipfs, fixtureType)
-
       resolve()
     })
   })
+}
+  
 
 // const populateIpfs = () =>
 //   new Promise((resolve, reject) => {

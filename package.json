@@ -86,6 +86,7 @@
     "read-chunk": "^2.1.0",
     "shelljs": "^0.8.2",
     "sinon": "^5.0.3",
+    "sync-request": "^6.0.0",
     "truffle": "^4.1.7",
     "truffle-hdwallet-provider": "0.0.5",
     "webpack": "^4.6.0",

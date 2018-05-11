@@ -1,3 +1,16 @@
+import Web3 from "web3"
+import request from "sync-request"
+// import { getIpfsConfig } from "../scripts/utils"
+import testData from "../contracts/test/TestData.json"
+
+// Get Public IP
+const res = request("GET", "http://ipinfo.io/ip");
+const publicIp = res.getBody("utf8");
+// const iCnf = getIpfsConfig()
+const provider = new Web3.providers.HttpProvider(`http://${publicIp}:8545`)
+
+export const web3 = new Web3(provider)
+
 export const ipfsHashes = [
   {
     ipfsHash: "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG",
@@ -23,7 +36,6 @@ export const ipfsHashes = [
   }
 ]
 
-const testData = require("../contracts/test/TestData.json");
 export const listings = [
   {
     data: {
@@ -32,9 +44,17 @@ export const listings = [
     ipfsHash: testData.IPFS_HASH,
   }
 ]
+
+// export const ipfsConfig = {
+//   ipfsDomain: publicIp,
+//   ipfsApiPort: iCnf.IPFS_API_PORT,
+//   ipfsGatewayPort: iCnf.IPFS_GATEWAY_PORT,
+//   ipfsGatewayProtocol: "http"
+// }
+
 export const ipfsConfig = {
-  ipfsDomain: "127.0.0.1",
-  ipfsApiPort: "5002",
-  ipfsGatewayPort: "8080",
+  ipfsDomain: publicIp,
+  ipfsApiPort: process.env.IPFS_API_PORT,
+  ipfsGatewayPort: process.env.IPFS_GATEWAY_PORT,
   ipfsGatewayProtocol: "http"
 }
