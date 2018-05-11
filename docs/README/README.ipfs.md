@@ -23,6 +23,17 @@ ipfs config Addresses.Gateway /ip4/0.0.0.0/tcp/8081 &&
 ipfs daemon
 ```
 
+## 3. PM2
+
+> Run under pm2
+
+```
+  cd o2oprotocol/docs/README
+  pm2 start ipfs.sh --no-autorestart
+```
+
+## 4. TODO
+
 Simple deploy files under `files` folder with node
 
 ```
