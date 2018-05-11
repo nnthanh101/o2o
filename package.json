@@ -2,6 +2,9 @@
   "name": "o2oprotocol",
   "version": "0.1.0",
   "description": "Smart Contracts (create and book listings) without directly interfacing with the Blockchain or IPFS.",
+  "engines": {
+    "node": ">=9.11.1"
+  },
   "main": "./dist/index.js",
   "scripts": {
     "test": "node scripts/test.js",
