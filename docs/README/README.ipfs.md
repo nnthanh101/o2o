@@ -1,23 +1,25 @@
 # Demo
 Push files under `files` folder
 
-## Setup IPFS local
+## 1. Setup IPFS local
 Install ipfs
 
 ```
-sudo apt-get update
-sudo apt-get install golang-go -y
+sudo apt-get update                                                         &&
+sudo apt-get install golang-go -y                                           &&
 
-wget https://dist.ipfs.io/go-ipfs/v0.4.10/go-ipfs_v0.4.10_linux-386.tar.gz
-tar xvfz go-ipfs_v0.4.10_linux-386.tar.gz
+wget https://dist.ipfs.io/go-ipfs/v0.4.10/go-ipfs_v0.4.10_linux-386.tar.gz  &&
+tar xvfz go-ipfs_v0.4.10_linux-386.tar.gz                                   &&
 sudo mv go-ipfs/ipfs /usr/local/bin/ipfs
 ```
 
-## Run local
+## 2. Run Daemon
 By default ipfs run on port 5001
 
 ```
-ipfs init
+ipfs init                                           &&
+ipfs config Addresses.API /ip4/0.0.0.0/tcp/5001     &&
+ipfs config Addresses.Gateway /ip4/0.0.0.0/tcp/8081 &&
 ipfs daemon
 ```
 
@@ -45,15 +47,6 @@ Review online
 
 ```
 https://infs.io/ipfs/QmNwoE1vkQeEwY3dyDdK4uyaYpm2GYTUn68mqkf4kdvXcn
-```
-
-## Tunning Config
-
-Hanlde port conflict
-
-```
-ipfs config Addresses.API /ip4/0.0.0.0/tcp/5001
-ipfs config Addresses.Gateway /ip4/0.0.0.0/tcp/8080
 ```
 
 
