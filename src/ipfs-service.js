@@ -14,7 +14,7 @@ const Ports = {
 class IpfsService {
   constructor({
     ipfsGatewayProtocol = "https",
-    ipfsDomain = "gateway.o2oprotocol.io",
+    ipfsDomain = "ipfs.o2oprotocol.com",
     ipfsGatewayPort = "443",
     ipfsApiPort = "443"
   } = {}) {

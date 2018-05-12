@@ -32,32 +32,32 @@ describe("7.IpfsService", () => {
   describe("constructor", () => {
     it("should default to o2oprotocol", () => {
       var service = new IpfsService()
-      expect(service.gateway).to.equal("https://gateway.o2oprotocol.io")
-      expect(service.api).to.equal("https://gateway.o2oprotocol.io")
+      expect(service.gateway).to.equal("https://ipfs.o2oprotocol.com")
+      expect(service.api).to.equal("https://ipfs.o2oprotocol.com")
     })
 
     it("should use specified port if not protocol default", () => {
       var service = new IpfsService({ ipfsGatewayPort: "8080" })
       expect(service.gateway).to.equal(
-        "https://gateway.o2oprotocol.io:8080"
+        "https://ipfs.o2oprotocol.com:8080"
       )
 
       service = new IpfsService({
         ipfsGatewayProtocol: "http",
         ipfsGatewayPort: "8080"
       })
-      expect(service.gateway).to.equal("http://gateway.o2oprotocol.io:8080")
+      expect(service.gateway).to.equal("http://ipfs.o2oprotocol.com:8080")
 
       service = new IpfsService({
         ipfsGatewayProtocol: "http",
         ipfsApiPort: "8080"
       })
-      expect(service.api).to.equal("http://gateway.o2oprotocol.io:8080")
+      expect(service.api).to.equal("http://ipfs.o2oprotocol.com:8080")
     })
 
     it("should use default protocol port if given port is empty", () => {
       var service = new IpfsService({ ipfsGatewayPort: "" })
-      expect(service.gateway).to.equal("https://gateway.o2oprotocol.io")
+      expect(service.gateway).to.equal("https://ipfs.o2oprotocol.com")
     })
   })
 

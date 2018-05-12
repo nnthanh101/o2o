@@ -18,7 +18,7 @@ export const ipfsHashes = [
       "0x9d6c2be50f706953479ab9df2ce3edca90b68053c00b3004b7f0accbe1e8eedf",
     url: {
       default:
-        "https://gateway.o2oprotocol.io/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG",
+        "https://ipfs.o2oprotocol.com/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG",
       local:
         `http://${publicIp}:${iCnf.IPFS_GATEWAY_PORT}/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG`
     }
@@ -29,7 +29,7 @@ export const ipfsHashes = [
       "0x762e65d7166d5cf0eed8541a0b55a79002774f6ef086619202ef749a1bf8f3ba",
     url: {
       default:
-        "https://gateway.o2oprotocol.io/ipfs/QmWHyrPWQnsz1wxHR219ooJDYTvxJPyZuDUPSDpdsAovN5",
+        "https://ipfs.o2oprotocol.com/ipfs/QmWHyrPWQnsz1wxHR219ooJDYTvxJPyZuDUPSDpdsAovN5",
       local:
         `http://${publicIp}:${iCnf.IPFS_GATEWAY_PORT}/ipfs/QmWHyrPWQnsz1wxHR219ooJDYTvxJPyZuDUPSDpdsAovN5`
     }
