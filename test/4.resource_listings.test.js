@@ -20,7 +20,7 @@ describe("4.Listing Resource", function() {
     // ipfsService = new IpfsService({
     //   ipfsDomain: "127.0.0.1",
     //   ipfsApiPort: "5002",
-    //   ipfsGatewayPort: "8080",
+    //   ipfsGatewayPort: "8081",
     //   ipfsGatewayProtocol: "http"
     // })
     ipfsService = new IpfsService(ipfsConfig)

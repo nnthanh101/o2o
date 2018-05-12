@@ -17,7 +17,7 @@ describe("7.IpfsService", () => {
     // ipfsService = new IpfsService({
     //   ipfsDomain: "127.0.0.1",
     //   ipfsApiPort: "5002",
-    //   ipfsGatewayPort: "8080",
+    //   ipfsGatewayPort: "8081",
     //   ipfsGatewayProtocol: "http"
     // })
     ipfsService = new IpfsService(ipfsConfig)
@@ -37,22 +37,22 @@ describe("7.IpfsService", () => {
     })
 
     it("should use specified port if not protocol default", () => {
-      var service = new IpfsService({ ipfsGatewayPort: "8080" })
+      var service = new IpfsService({ ipfsGatewayPort: "8081" })
       expect(service.gateway).to.equal(
-        "https://ipfs.o2oprotocol.com:8080"
+        "https://ipfs.o2oprotocol.com:8081"
       )
 
       service = new IpfsService({
         ipfsGatewayProtocol: "http",
-        ipfsGatewayPort: "8080"
+        ipfsGatewayPort: "8081"
       })
-      expect(service.gateway).to.equal("http://ipfs.o2oprotocol.com:8080")
+      expect(service.gateway).to.equal("http://ipfs.o2oprotocol.com:8081")
 
       service = new IpfsService({
         ipfsGatewayProtocol: "http",
-        ipfsApiPort: "8080"
+        ipfsApiPort: "8081"
       })
-      expect(service.api).to.equal("http://ipfs.o2oprotocol.com:8080")
+      expect(service.api).to.equal("http://ipfs.o2oprotocol.com:8081")
     })
 
     it("should use default protocol port if given port is empty", () => {

@@ -53,7 +53,7 @@ describe("2.User Resource", function() {
     // ipfsService = new IpfsService({
     //   ipfsDomain: "127.0.0.1",
     //   ipfsApiPort: "5002",
-    //   ipfsGatewayPort: "8080",
+    //   ipfsGatewayPort: "8081",
     //   ipfsGatewayProtocol: "http"
     // })
     let ipfsService = new IpfsService(ipfsConfig)

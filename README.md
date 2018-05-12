@@ -139,7 +139,7 @@ const origin = new O2OProtocol(configOptions)
 {
  ipfsDomain: '127.0.0.1',
  ipfsApiPort: '5001',
- ipfsGatewayPort: '8080',
+ ipfsGatewayPort: '8081',
  ipfsGatewayProtocol: 'http'
 }
 ```

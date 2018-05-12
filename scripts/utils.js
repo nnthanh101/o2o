@@ -9,13 +9,13 @@ const getIpfsConfig = () => {
     
     // const {
     //     IPFS_API_PORT = "5002",
-    //     IPFS_GATEWAY_PORT = "8080",
+    //     IPFS_GATEWAY_PORT = "8081",
     //     IPFS_GATEWAY_PROTOCOL = "http"
     // } = process.env
 
     return {
         IPFS_API_PORT: process.env.IPFS_API_PORT || "5002",
-        IPFS_GATEWAY_PORT: process.env.IPFS_GATEWAY_PORT || "8080",
+        IPFS_GATEWAY_PORT: process.env.IPFS_GATEWAY_PORT || "8081",
         IPFS_GATEWAY_PROTOCOL: process.env.IPFS_GATEWAY_PROTOCOL || "http"
     }
 }

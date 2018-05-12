@@ -12,7 +12,7 @@ const createDefaultListings = () => {
 
   const { IPFS_ADDRES_API, IPFS_ADDRES_GATEWAY } = process.env
   const ipfsApiPort = IPFS_ADDRES_API || 5001
-  const ipfsGatewayPort = IPFS_ADDRES_GATEWAY || 8080
+  const ipfsGatewayPort = IPFS_ADDRES_GATEWAY || 8081
 
   const ipfsConfig = {
     ipfsApiPort,
