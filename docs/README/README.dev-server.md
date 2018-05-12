@@ -29,7 +29,7 @@ sudo mv go-ipfs/ipfs /usr/local/bin/ipfs
 ```bash
 # Mnemonic to setup default account
 # Default mnemonic value
-guide box joke increase brown kick avoid toe wedding sure swift seek
+logic cradle area quality lumber pitch radar sense dove fault capital observe
 # Setup in environment
 export MNEMONIC=[YOUR MNEMONIC]
 ```

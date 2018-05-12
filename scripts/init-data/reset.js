@@ -3,7 +3,7 @@ const Web3 = require("web3")
 const HDWalletProvider = require("truffle-hdwallet-provider")
 
 const resetListings = () => {
-  const mnemonic = process.env.MNEMONIC || "guide box joke increase brown kick avoid toe wedding sure swift seek"
+  const mnemonic = process.env.MNEMONIC || "logic cradle area quality lumber pitch radar sense dove fault capital observe"
   const provider = new HDWalletProvider(mnemonic, "http://localhost:8545")
   const web3 = new Web3(provider)
 
