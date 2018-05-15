@@ -10,15 +10,23 @@ var resources = {
   users: require("./resources/users")
 }
 
+const defaultBridgeServer = "https://bridge.o2oprotocol.com"
+const defaultIpfsDomain = "gateway.o2oprotocol.com"
+const defaultIpfsApiPort = "5002"
+const defaultIpfsGatewayPort = "443"
+const defaultIpfsGatewayProtocol = "https"
+const defaultAttestationServerUrl = `${defaultBridgeServer}/api/attestations`
+
 class O2OProtocol {
   constructor({
-    ipfsDomain,
-    ipfsApiPort,
-    ipfsGatewayPort,
-    ipfsGatewayProtocol,
-    attestationServerUrl
+    ipfsDomain = defaultIpfsDomain,
+    ipfsApiPort = defaultIpfsApiPort,
+    ipfsGatewayPort = defaultIpfsGatewayPort,
+    ipfsGatewayProtocol = defaultIpfsGatewayProtocol,
+    attestationServerUrl = defaultAttestationServerUrl,
+    contractAddresses
   } = {}) {
-    this.contractService = new ContractService()
+    this.contractService = new ContractService({ contractAddresses })
     this.ipfsService = new IpfsService({
       ipfsDomain,
       ipfsApiPort,

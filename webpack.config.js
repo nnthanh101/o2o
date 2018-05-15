@@ -38,10 +38,11 @@ var clientConfig = {
   entry: ["babel-polyfill", './src/index.js'],
   output: {
     filename: './o2oprotocol.js',
-    libraryTarget: 'window'
+    libraryTarget: 'var',
+    library: 'O2OProtocol'
   },
-  mode: 'development',
-  devtool: 'inline-source-map',
+  mode: 'production',
+  devtool: false,
   target: 'web',
   module: {
     rules: [
