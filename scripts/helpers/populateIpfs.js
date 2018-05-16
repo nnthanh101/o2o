@@ -76,7 +76,8 @@ const createListingJson = async (ipfs, sampleTestCases, sampleDir) => {
 
     const pictures = await Promise.all(
       urls.map(async url => {
-        const filePath = await storeDownloadFile(url);
+        const storeAt = path.join(sampleDir, md5(url))
+        const filePath = await storeDownloadFile(url, storeAt);
         const base64 = convertToBrowserBase64(filePath);
         return base64;
       })
