@@ -16,7 +16,7 @@ Object.assign(config, {
   devServer: {
     stats: "errors-only",
     host: "0.0.0.0",
-    port: 8081,
+    port: 8083,
     overlay: {
       errors: false,
       warnings: false

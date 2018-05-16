@@ -47,18 +47,44 @@ async function deploy_sample_contracts(network) {
   console.log(`a_buyer_account:       ${a_buyer_account}`)
   console.log(`another_buyer_account: ${another_buyer_account}`)
 
-  const listingSample = path.join(__dirname, "..", "..", "build", "sample-data", "listings.json");
-  const hasSampleFile = fs.exists(listingSample)
-  
-  if(hasSampleFile){
-    const listings = require(listingSample)
-    for(listing in listings){
-      const {ipfsHash, price, unitsAvailable } = listing
-      await listingsRegistry.create( ipfsHash, web3.toWei(+price, "ether"), + unitsAvailable, { from: a_seller_account, gas: 4476768 })
-    }
-  }
+  console.log(`Add sample listings`)
 
-  if (hasSampleFile && network === "development") {
+  const listingSample = path.join(__dirname, "..", "..", "build", "sample-data", "listings.json");
+  const hasSampleFile = fs.existsSync(listingSample)
+  const transactions = [];
+
+  if(!hasSampleFile) {
+    console.log(`Sample file not found`, listingSample)
+    return
+  }
+  
+  const listings = require(listingSample)
+  
+  for(index in listings){
+    const listing = listings[index]
+    const {ipfsHash, price, unitsAvailable } = listing
+
+    const trans = await listingsRegistry.create( 
+      ipfsHash,
+      web3.toWei(price, "ether"), 
+      unitsAvailable,
+      { from: a_seller_account, gas: 4476768 }
+    )
+    
+    transactions.push(trans)
+  }
+  
+  const listing0 = listings[0]
+
+  const ticketsTransaction = await listingsRegistry.create(
+    listing0.ipfsHash,
+    web3.toWei(listing0.price, "ether"),
+    listing0.unitsAvailable,
+    { from: default_account, gas: 4476768 }
+  )
+
+  if (network === "development") {
+    console.log("Test Purchase")
     // Creating ticket purchases at different stages
     const ticketsListing = await getListingContract(ticketsTransaction)
     let purchase

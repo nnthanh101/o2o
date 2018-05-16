@@ -1,7 +1,10 @@
 const fs = require("fs");
 const IPFS = require('ipfs-api');
 const path = require("path");
+const dotenv = require("dotenv")
 const _ = console.log
+
+dotenv.config()
 
 /**
  * Push files to IPFS
@@ -38,7 +41,7 @@ const pushABIToIpfs = () => {
   // return pushFilesToIpfs(ipfsConfig, files)
 
   const host = "localhost"
-  const port = 5002
+  const port = process.env.IPFS_API_PORT
   const protocol = "http"
   const ipfsConfig = {host, port, protocol}
 

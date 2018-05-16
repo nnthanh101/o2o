@@ -14,7 +14,8 @@
     "format": "npx prettier --write test/*.js src/**.js contracts/test/**.js",
     "prepare": "npm run build",
     "install:dev": "npm install && npm link",
-    "start": "node scripts/build.js serve"
+    "start": "node scripts/build.js serve",
+    "run": "node scripts/run.js"
   },
   "files": [
     "dist"
@@ -53,7 +54,8 @@
     "multiplex": "^6.7.0",
     "rlp": "^2.0.0",
     "util.promisify": "^1.0.0",
-    "web3": "^1.0.0-beta.34"
+    "web3": "^1.0.0-beta.34",
+    "webrtcsupport": "^2.2.0"
   },
   "lint-staged": {
     "*.js": [

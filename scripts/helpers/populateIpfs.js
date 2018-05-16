@@ -82,14 +82,14 @@ const createListingJson = async (ipfs, sampleTestCases, sampleDir) => {
       })
     );
 
-    const listing = { ...testCase, pictures };
+    const listingDataInIpfs = { data: { ...testCase, pictures } };
 
     const fileName = path.join(
       sampleDir,
       `${testCase.name.replace(/\s/g, "")}.json`
     );
 
-    fs.writeFileSync(fileName, JSON.stringify(listing));
+    fs.writeFileSync(fileName, JSON.stringify(listingDataInIpfs));
 
     const result = await new Promise((resolve, reject) => {
       ipfs.files.add([fileName], (err, result) => {
@@ -99,12 +99,12 @@ const createListingJson = async (ipfs, sampleTestCases, sampleDir) => {
     });
 
     const hashByte32 = getBytes32FromIpfsHash(result.hash);
-    console.log(`${path.basename(fileName).substring(0, 10)}... hashByte32:`, hashByte32);
+    console.log(`${path.basename(fileName).substring(0, 10)}... hash:`, result.hash);
 
     return {
       ipfsHash: hashByte32,
-      price: listing.price,
-      unitsAvailable: listing.unitsAvailable
+      price: testCase.price,
+      unitsAvailable: testCase.unitsAvailable
     };
   });
 
@@ -129,7 +129,7 @@ const populateToIpfs = async (ipfs, fixtureType) => {
   }
 
   const samples = require(sampleFile)
-  const sampleDir = path.join(__dirname, "..", "..", "..", "build", "sample-data");
+  const sampleDir = path.join(__dirname, "..", "..", "build", "sample-data");
   shelljs.mkdir("-p", sampleDir)
   
   const listingPath = await createListingJson(ipfs, samples, sampleDir);

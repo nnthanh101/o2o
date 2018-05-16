@@ -21,7 +21,7 @@
   },
   {
     "name": "Galaxy C9 Pro",
-    "unitsAvailable": 13,
+    "unitsAvailable": 12,
     "description": "🎲 Dimensions: 6.0\" (152.0mm), Quad HD (2K). \n📺 Display : 1920 x 1080 (FHD). \n📷 Camera: 16 MP, Selfie: 16 MP. \n💾 Memory: RAM: 6GB, ROM: 64GB.\n📱 OS: Android 6.0 (Marshmallow).",
     "price": 0.79,
     "category": "Galaxy C",
@@ -31,7 +31,7 @@
   },
   {
     "name": "Galaxy J7 Prime",
-    "unitsAvailable": 13,
+    "unitsAvailable": 14,
     "description": "🎲 Dimensions: 5.5\" (138.8mm). \n📺 Display: 1080 x 1920 (Super AMOLED) \n📷 Camera: 13MP, Selfie: 8MP. \n💾 Memory: RAM: 3GB, ROM: 32GB.\n📱 OS: Android 6.0 (Marshmallow).",
     "price": 0.63,
     "category": "Galaxy J",
