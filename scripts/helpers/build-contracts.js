@@ -1,8 +1,14 @@
-const { spawn } = require('child_process')
+// const { spawn } = require('child_process')
+const spawn = require("cross-spawn")
+const path = require("path")
 
 const buildContracts = () => {
   return new Promise((resolve, reject) => {
-    const truffleCompile = spawn('../node_modules/.bin/truffle', ['compile'], { cwd: './contracts' })
+    const cmd = path.join(__dirname, "..", "..", "node_modules", ".bin", "truffle")
+    const contractsDir = path.join(__dirname, "..", "..", "contracts")
+    console.log("cmd, contractsDir", cmd, contractsDir)
+    
+    const truffleCompile = spawn(cmd, ['compile'], { cwd: contractsDir })
     truffleCompile.stdout.pipe(process.stdout)
     truffleCompile.stderr.on('data', data => {
       reject(String(data))

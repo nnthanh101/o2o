@@ -18,8 +18,8 @@ Object.assign(config, {
     host: "0.0.0.0",
     port: 8081,
     overlay: {
-      errors: true,
-      warnings: true
+      errors: false,
+      warnings: false
     }
   },
 
