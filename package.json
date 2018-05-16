@@ -48,6 +48,7 @@
     "cross-fetch": "^2.1.1",
     "cross-spawn": "^6.0.5",
     "dotenv": "^5.0.1",
+    "ethereumjs-abi": "^0.6.5",
     "ethereumjs-util": "^5.2.0",
     "form-data": "^2.3.2",
     "map-cache": "^0.2.2",
