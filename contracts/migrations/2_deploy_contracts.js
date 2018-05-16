@@ -20,5 +20,5 @@ async function deployContracts(deployer) {
   await deployer.deploy(O2OIdentity);
 
   const ipfsHashes = await pushABIToIpfs()
-  ipfsHashes.forEach(ipfsHash => console.log(`${ipfsHash.path} -> ${ipfsHash.hash}`))
+  ipfsHashes.forEach(ipfsHash => console.log(`${ipfsHash.path.substr(0, 16)}... -> ${ipfsHash.hash}`))
 }
