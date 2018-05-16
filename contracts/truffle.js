@@ -1,4 +1,8 @@
-var HDWalletProvider = require("truffle-hdwallet-provider");
+const dotenv = require("dotenv")
+const HDWalletProvider = require("truffle-hdwallet-provider");
+
+dotenv.config()
+const PORT = process.env.GANACHE_PORT || 8545
 
 // How many addresses in wallet should we unlock?
 // (For deploying test data, we use other addresses as buyers and sellers)
@@ -10,7 +14,7 @@ truffleSetup = {
   networks: {
     development: {
       host: "localhost",
-      port: 8545,
+      port: PORT,
       network_id: "*" // Match any network id
     },
   },
