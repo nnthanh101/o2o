@@ -31,6 +31,7 @@ truffleSetup = {
 // TODO: gasLimit = Gtransaction + Gtxdatanonzero × dataByteLength
 // gasLimit = 21000 + 68 * Gtxdatanonzero:10 = 21000 + 680 = 21680
 const gas = process.env.GAS_LIMIT || 4612388 // milion
+const gasPrice = process.env.GAS_PRICE || 30000000000 //milion
 
 if (process.env.MAINNET_MNEMONIC) {
   truffleSetup.networks.mainnet = {
@@ -42,6 +43,7 @@ if (process.env.MAINNET_MNEMONIC) {
     },
     network_id: 1,
     gas,
+    gasPrice,
   }
 }
 if (process.env.RINKEBY_MNEMONIC) {
@@ -54,6 +56,7 @@ if (process.env.RINKEBY_MNEMONIC) {
     },
     network_id: 4,
     gas,
+    gasPrice,
   }
 }
 if (process.env.ROPSTEN_MNEMONIC) {
@@ -66,6 +69,7 @@ if (process.env.ROPSTEN_MNEMONIC) {
     },
     network_id: 3,
     gas,
+    gasPrice,
   }
 }
 
