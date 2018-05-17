@@ -30,7 +30,7 @@ truffleSetup = {
 // Please setup gas limit to resolve bug "exceed gas limit" when deploy
 // TODO: gasLimit = Gtransaction + Gtxdatanonzero × dataByteLength
 // gasLimit = 21000 + 68 * Gtxdatanonzero:10 = 21000 + 680 = 21680
-const gas = process.env.GAS_LIMIT || 4712388 // milion
+const gas = process.env.GAS_LIMIT || 4612388 // milion
 
 if (process.env.MAINNET_MNEMONIC) {
   truffleSetup.networks.mainnet = {
