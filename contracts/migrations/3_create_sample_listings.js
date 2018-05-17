@@ -68,7 +68,7 @@ async function deploy_sample_contracts(network) {
       ipfsHash,
       web3.toWei(price, "ether"), 
       unitsAvailable,
-      { from: a_seller_account, gas: 4476768 }
+      { from: a_seller_account }
     )
     
     transactions.push(trans)
@@ -80,7 +80,7 @@ async function deploy_sample_contracts(network) {
     listing0.ipfsHash,
     web3.toWei(listing0.price, "ether"),
     listing0.unitsAvailable,
-    { from: default_account, gas: 4476768 }
+    { from: default_account }
   )
 
   if (network === "development") {
