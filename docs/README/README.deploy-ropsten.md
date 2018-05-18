@@ -21,5 +21,5 @@ nvm use 9.11.1 &&
 export ROPSTEN_MNEMONIC="logic cradle area quality lumber pitch radar sense dove fault capital observe" &&
 export IPFS_API_PORT=5001 &&
 export INFURA_ACCESS_TOKEN=k89Iwbyul2K52Za7qh9w &&
-cd contracts && ../node_modules/.bin/truffle.cmd deploy --network ropsten
+cd contracts && ../node_modules/.bin/truffle deploy --network ropsten
 ```
