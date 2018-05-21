@@ -12,22 +12,26 @@ const startIpfs = (opts = {}) => {
   const cnf = getIpfsConfig()
 
   return new Promise((resolve, reject) => {
-    const httpAPI = new HttpIPFS(undefined, {
-      Addresses: {
-        API: `/ip4/0.0.0.0/tcp/${cnf.IPFS_API_PORT}`,
-        Gateway: `/ip4/0.0.0.0/tcp/${cnf.IPFS_GATEWAY_PORT}`
-      }
-    })
-    console.log('Start IPFS')
-    httpAPI.start(true, async err => {
-      if (err) {
-        return reject(err)
-      }
-      console.log('Started IPFS')
-      const ipfs = ipfsAPI('localhost', cnf.IPFS_API_PORT, { protocol: 'http' })
-      await populateIpfs(ipfs, fixtureType)
-      resolve()
-    })
+    // const httpAPI = new HttpIPFS(undefined, {
+    //   Addresses: {
+    //     API: `/ip4/0.0.0.0/tcp/${cnf.IPFS_API_PORT}`,
+    //     Gateway: `/ip4/0.0.0.0/tcp/${cnf.IPFS_GATEWAY_PORT}`
+    //   }
+    // })
+    // console.log('Start IPFS')
+    // httpAPI.start(true, async err => {
+    //   if (err) {
+    //     return reject(err)
+    //   }
+    //   console.log('Started IPFS')
+    //   const ipfs = ipfsAPI('localhost', cnf.IPFS_API_PORT, { protocol: 'http' })
+    //   await populateIpfs(ipfs, fixtureType)
+    //   resolve()
+    // })
+
+    console.log("Using native IPFS")
+    const ipfs = ipfsAPI('localhost', cnf.IPFS_API_PORT, { protocol: 'http' })
+    await populateIpfs(ipfs, fixtureType)
   })
 }
   
