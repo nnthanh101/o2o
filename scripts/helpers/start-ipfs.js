@@ -11,7 +11,7 @@ dotenv.config();
 const startIpfs = (opts = {}) => {
   const cnf = getIpfsConfig()
 
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     // const httpAPI = new HttpIPFS(undefined, {
     //   Addresses: {
     //     API: `/ip4/0.0.0.0/tcp/${cnf.IPFS_API_PORT}`,
@@ -32,6 +32,7 @@ const startIpfs = (opts = {}) => {
     console.log("Using native IPFS")
     const ipfs = ipfsAPI('localhost', cnf.IPFS_API_PORT, { protocol: 'http' })
     await populateIpfs(ipfs, fixtureType)
+    resolve();
   })
 }
   
