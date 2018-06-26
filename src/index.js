@@ -24,9 +24,10 @@ class O2OProtocol {
     ipfsGatewayPort = defaultIpfsGatewayPort,
     ipfsGatewayProtocol = defaultIpfsGatewayProtocol,
     attestationServerUrl = defaultAttestationServerUrl,
-    contractAddresses
+    contractAddresses,
+    web3
   } = {}) {
-    this.contractService = new ContractService({ contractAddresses })
+    this.contractService = new ContractService({ contractAddresses, web3 })
     this.ipfsService = new IpfsService({
       ipfsDomain,
       ipfsApiPort,
