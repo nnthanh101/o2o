@@ -76,6 +76,8 @@
     "babel-preset-stage-2": "^6.24.1",
     "chai": "^4.1.2",
     "dotenv-webpack": "^1.5.5",
+    "chalk": "^2.4.1",
+    "eth-gas-reporter": "^0.1.2",
     "fetch-mock": "^6.3.0",
     "file-type": "^7.7.1",
     "flow-bin": "^0.71.0",

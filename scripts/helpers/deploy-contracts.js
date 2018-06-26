@@ -1,6 +1,7 @@
 // const { spawn } = require('child_process')
 const path = require("path")
 const spawn = require("cross-spawn")
+const minifyContracts = require('./minify-contracts')
 
 const deployContracts = () => {
   return new Promise((resolve, reject) => {
@@ -16,6 +17,7 @@ const deployContracts = () => {
       if (code === 0) {
         console.log('Truffle migrate finished OK.')
       }
+      minifyContracts()
       resolve()
     })
   })

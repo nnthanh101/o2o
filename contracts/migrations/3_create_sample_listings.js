@@ -75,7 +75,7 @@ async function deploy_sample_contracts(network) {
   }
   
   const listing0 = listings[0]
-
+  
   const ticketsTransaction = await listingsRegistry.create(
     listing0.ipfsHash,
     web3.toWei(listing0.price, "ether"),
@@ -83,8 +83,8 @@ async function deploy_sample_contracts(network) {
     { from: default_account }
   )
 
-  if (network === "development") {
-    console.log("Test Purchase")
+  if (network === "development") { 
+    console.log("Test Purchase")    
     // Creating ticket purchases at different stages
     const ticketsListing = await getListingContract(ticketsTransaction)
     let purchase
@@ -96,11 +96,11 @@ async function deploy_sample_contracts(network) {
 
     purchase = await buyListing(ticketsListing, 1, another_buyer_account)
     await purchase.sellerConfirmShipped({ from: default_account })
-    await purchase.buyerConfirmReceipt({ from: another_buyer_account })
+    await purchase.buyerConfirmReceipt(5, "", { from: another_buyer_account })
 
     purchase = await buyListing(ticketsListing, 1, another_buyer_account)
     await purchase.sellerConfirmShipped({ from: default_account })
-    await purchase.buyerConfirmReceipt({ from: another_buyer_account })
-    await purchase.sellerCollectPayout({ from: default_account })
+    await purchase.buyerConfirmReceipt(3, "", { from: another_buyer_account })
+    await purchase.sellerCollectPayout(4,"",{ from: default_account })
   }
 }

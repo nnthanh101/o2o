@@ -11,10 +11,17 @@ const numAddressesToUnlock = 4
 // Local setup
 truffleSetup = {
   migrations_directory: "./migrations",
+  mocha: {
+    reporter: 'eth-gas-reporter',
+    reporterOptions : {
+      currency: 'USD',
+      onlyCalledMethods: true
+    }
+  },
   networks: {
     development: {
       host: "localhost",
-      port: PORT,
+      port: 8545,
       network_id: "*" // Match any network id
     },
   },
@@ -68,7 +75,7 @@ if (process.env.ROPSTEN_MNEMONIC) {
         0, numAddressesToUnlock)
     },
     network_id: 3,
-    gas,
+    gas: 3712388,
     gasPrice,
   }
 }

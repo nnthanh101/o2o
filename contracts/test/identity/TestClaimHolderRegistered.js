@@ -2,12 +2,12 @@ var Web3 = require("web3")
 
 const ClaimHolderRegistered = artifacts.require("ClaimHolderRegistered")
 const UserRegistry = artifacts.require("UserRegistry")
-const testData = require("../TestData.json");
 
-const signature_1 = testData.SIGNATURE_1
-const signature_2 = testData.SIGNATURE_2
-const dataHash_1 = testData.DATAHASH_1
-const dataHash_2 = testData.DATAHASH_2
+const signature_1 = "0xeb6123e537e17e2c67b67bbc0b93e6b25ea9eae276c4c2ab353bd7e853ebad2446cc7e91327f3737559d7a9a90fc88529a6b72b770a612f808ab0ba57a46866e1c"
+const signature_2 = "0x061ef9cdd7707d90d7a7d95b53ddbd94905cb05dfe4734f97744c7976f2776145fef298fd0e31afa43a103cd7f5b00e3b226b0d62e4c492d54bec02eb0c2a0901b"
+
+const dataHash_1 = "0x4f32f7a7d40b4d65a917926cbfd8fd521483e7472bcc4d024179735622447dc9"
+const dataHash_2 = "0xa183d4eb3552e730c2dd3df91384426eb88879869b890ad12698320d8b88cb48"
 
 contract("ClaimHolderRegistered", accounts => {
   let claimHolderRegistered, userRegistry
@@ -64,6 +64,7 @@ contract("ClaimHolderRegistered", accounts => {
       [ attestation_1.issuer, attestation_2.issuer ],
       attestation_1.signature + attestation_2.signature.slice(2),
       attestation_1.data + attestation_2.data.slice(2),
+      [32, 32],
       { from: accounts[0] }
     )
 
