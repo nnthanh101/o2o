@@ -6,7 +6,7 @@ import ListingsRegistryContract from "./../../contracts/build/contracts/Listings
 import ListingContract from "./../../contracts/build/contracts/Listing.json"
 import PurchaseContract from "./../../contracts/build/contracts/Purchase.json"
 import UserRegistryContract from "./../../contracts/build/contracts/UserRegistry.json"
-import OriginIdentityContract from "./../../contracts/build/contracts/OriginIdentity.json"
+import O2OIdentityContract from "./../../contracts/build/contracts/O2OIdentity.json"
 import bs58 from "bs58"
 import Web3 from "web3"
 
@@ -15,7 +15,7 @@ class ContractService {
     const externalWeb3 = options.web3 || window.web3
     if (!externalWeb3) {
       throw new Error(
-        "web3 is required for Origin.js. Please pass in web3 as a config option."
+        "web3 is required for o2oprotocol.js. Please pass in web3 as a config option."
       )
     }
     this.web3 = new Web3(externalWeb3.currentProvider)
@@ -27,7 +27,7 @@ class ContractService {
       userRegistryContract: UserRegistryContract,
       claimHolderRegisteredContract: ClaimHolderRegisteredContract,
       claimHolderPresignedContract: ClaimHolderPresignedContract,
-      originIdentityContract: OriginIdentityContract
+      o2oIdentityContract: O2OIdentityContract
     }
     this.libraries = {}
     this.libraries.ClaimHolderLibrary = ClaimHolderLibrary

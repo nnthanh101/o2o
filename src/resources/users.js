@@ -190,7 +190,7 @@ class Users extends ResourceBase {
   }
 
   async isValidAttestation({ claimType, data, signature }, identityAddress) {
-    let originIdentity = await this.contractService.deployed(this.contractService.originIdentityContract)
+    let o2oIdentity = await this.contractService.deployed(this.contractService.o2oIdentityContract)
     let msg = Web3.utils.soliditySha3(identityAddress, claimType, data)
     let prefixedMsg = this.web3EthAccounts.hashMessage(msg)
     let dataBuf = toBuffer(prefixedMsg)
@@ -199,7 +199,7 @@ class Users extends ResourceBase {
     let recoveredBuf = pubToAddress(recovered)
     let recoveredHex = bufferToHex(recoveredBuf)
     let hashedRecovered = Web3.utils.soliditySha3(recoveredHex)
-    return await originIdentity.methods.keyHasPurpose(hashedRecovered, 3).call()
+    return await o2oIdentity.methods.keyHasPurpose(hashedRecovered, 3).call()
   }
 
   async validAttestations(identityAddress, attestations) {

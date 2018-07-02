@@ -119,7 +119,7 @@ npm run install:dev
 ```
 import O2OProtocol from 'o2oprotocol'
 const configOptions = {}
-const { contractService, ipfsService, originService } = new O2OProtocol(configOptions)
+const { contractService, ipfsService, o2oService } = new O2OProtocol(configOptions)
 ```
 ## Configuration Options
 Config options are passed into the O2OProtocol constructor at instantiation
@@ -128,7 +128,7 @@ Config options are passed into the O2OProtocol constructor at instantiation
 const configOptions = {
   option: 'value'
 }
-const origin = new O2OProtocol(configOptions)
+const o2o = new O2OProtocol(configOptions)
 ```
 
  Valid options:

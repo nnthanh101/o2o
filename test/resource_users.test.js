@@ -46,8 +46,8 @@ describe("User Resource", function() {
     let web3 = new Web3(provider)
     let accounts = await web3.eth.getAccounts()
     let contractService = new ContractService({ web3 })
-    let originIdentity = await contractService.deployed(
-      contractService.originIdentityContract
+    let o2oIdentity = await contractService.deployed(
+      contractService.o2oIdentityContract
     )
     let ipfsService = new IpfsService({
       ipfsDomain: "127.0.0.1",

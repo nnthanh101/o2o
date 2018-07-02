@@ -73,7 +73,6 @@ describe("ContractService", function() {
   })
 
   describe("getListing", () => {
-    // Skipped because of https://github.com/OriginProtocol/platform/issues/27
     it("should reject when listing cannot be found", done => {
       contractService.getListing("foo").then(done.fail, error => {
         expect(error).to.match(/Error fetching listingId/)

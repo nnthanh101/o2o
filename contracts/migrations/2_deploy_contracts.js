@@ -40,8 +40,8 @@ async function deployContracts(deployer) {
   await deployer.link(ClaimHolderLibrary, ClaimHolderPresigned)
   await deployer.link(KeyHolderLibrary, ClaimHolderPresigned)
 
-  await deployer.link(ClaimHolderLibrary, OriginIdentity)
-  await deployer.link(KeyHolderLibrary, OriginIdentity)
+  await deployer.link(ClaimHolderLibrary, O2OIdentity)
+  await deployer.link(KeyHolderLibrary, O2OIdentity)
   await deployer.deploy(O2OIdentity);
 
   const ipfsHashes = await pushABIToIpfs()

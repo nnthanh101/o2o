@@ -45,7 +45,7 @@ describe("IpfsService", () => {
   })
 
   describe("getFile", () => {
-    // Skipped because of https://github.com/OriginProtocol/platform/issues/27
+    // Skipped because of https://github.com/O2OProtocol/platform/issues/27
     xit("should reject when listing cannot be found", done => {
       ipfsService
         .getFile("QmWHyrPWQnsz1wxHR219ooJDYTvxJPyZuDUPSDpdsAovN5")
